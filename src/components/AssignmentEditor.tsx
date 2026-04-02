@@ -71,7 +71,7 @@ export function AssignmentEditor({
   return (
     <div className="space-y-6">
       {error && (
-        <p className="rounded-lg bg-[#8b1a1a]/30 px-3 py-2 text-sm text-red-200">{error}</p>
+        <p className="rounded-lg bg-[#8b1a1a]/30 px-3 py-2 text-sm text-red-200" role="alert">{error}</p>
       )}
 
       {unassigned.length > 0 && (
