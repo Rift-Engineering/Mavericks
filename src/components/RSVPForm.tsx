@@ -37,6 +37,7 @@ export function RSVPForm({ session, existing }: Props) {
   });
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
+  const [success, setSuccess] = useState<string | null>(null);
 
   async function onSubmit(e: React.FormEvent) {
     e.preventDefault();
@@ -99,6 +100,14 @@ export function RSVPForm({ session, existing }: Props) {
         setError(data.error ?? "Failed to save");
         return;
       }
+      const summary = !attending
+        ? "Marked as not attending"
+        : carpoolMode === "driver"
+          ? `Driving from ${start.name || "your location"}`
+          : carpoolMode === "rider"
+            ? "Needs a ride — you're in!"
+            : `Own way (${transportMode.toLowerCase().replace("_", " ")})`;
+      setSuccess(summary);
       router.refresh();
     } catch {
       setError("Request failed");
@@ -119,7 +128,12 @@ export function RSVPForm({ session, existing }: Props) {
     <form onSubmit={onSubmit} className="space-y-4 rounded-xl border border-white/10 bg-white/[0.03] p-4">
       <h3 className="text-lg font-medium text-white">Your RSVP</h3>
       {error && (
-        <p className="rounded-lg bg-[#8b1a1a]/30 px-3 py-2 text-sm text-red-200">{error}</p>
+        <p className="rounded-lg bg-[#8b1a1a]/30 px-3 py-2 text-sm text-red-200" role="alert">{error}</p>
+      )}
+      {success && (
+        <p className="rounded-lg bg-emerald-900/30 px-3 py-2 text-sm text-emerald-200" role="status">
+          ✓ {success}
+        </p>
       )}
 
       <div className="flex gap-4">
@@ -234,6 +248,7 @@ export function RSVPForm({ session, existing }: Props) {
       <button
         type="submit"
         disabled={loading}
+        aria-busy={loading}
         className="tap-target w-full rounded-lg bg-[#8b1a1a] py-3 font-medium text-white hover:bg-[#a32222] disabled:opacity-50"
       >
         {loading ? "Saving…" : "Save RSVP"}

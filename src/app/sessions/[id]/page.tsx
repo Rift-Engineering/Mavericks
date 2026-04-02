@@ -120,6 +120,21 @@ export default async function SessionDetailPage({
         )}
       </div>
 
+      {/* Personal cards promoted above map */}
+      {myRsvp?.attending && myRsvp.isDriver && <YourDriveCard rsvp={myRsvp} />}
+
+      {(showPublicAssignments || session.status === "OPTIMISED") &&
+        myRsvp?.needsCarpool &&
+        myRsvp.carpoolGroup &&
+        myRsvp.carpoolGroupId && (
+          <div>
+            <YourRideCard rsvp={myRsvp} sessionDate={session.date} />
+            {session.status === "OPTIMISED" && (
+              <p className="mt-1 text-xs text-amber-300">Pending — assignments not yet published</p>
+            )}
+          </div>
+        )}
+
       {showCarpoolMap ? (
         <CarpoolSessionMap
           venueName={session.locationName}
@@ -130,15 +145,6 @@ export default async function SessionDetailPage({
       ) : (
         <MapEmbed lat={session.locationLat} lng={session.locationLng} title={session.locationName} />
       )}
-
-      {myRsvp?.attending && myRsvp.isDriver && <YourDriveCard rsvp={myRsvp} />}
-
-      {showPublicAssignments &&
-        myRsvp?.needsCarpool &&
-        myRsvp.carpoolGroup &&
-        myRsvp.carpoolGroupId && (
-          <YourRideCard rsvp={myRsvp} sessionDate={session.date} />
-        )}
 
       <RSVPForm session={session} existing={myRsvp} />
 
