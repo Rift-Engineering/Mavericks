@@ -47,8 +47,8 @@ A prioritised plan to improve functionality and streamline the UI/UX, based on a
 - Login page doesn't redirect already-logged-in users away.
 - `proxy.ts` (edge middleware) exists but is **not wired** — no `middleware.ts` imports it.
 - No sign-up flow; admin creates all accounts.
-- No password-change UI for players.
-- No "forgot password" flow.
+- No password-change UI for players. 
+- No "forgot password" flow - keep it as admin reset
 
 ### Improvements
 
@@ -74,7 +74,7 @@ A prioritised plan to improve functionality and streamline the UI/UX, based on a
 |---|--------|--------|--------|
 | 3.1 | **Show the next 2–3 sessions**, not just one. Use a compact card list so users see what's coming beyond the immediate next event. | High — a single card can feel empty, and users may have consecutive weekend games. | Low |
 | 3.2 | **Add a quick-action banner** when the user has **not RSVP'd** to an open session whose deadline is approaching (< 48 h). Bold red accent, "RSVP closing soon" with a direct link. | High — drives engagement, reduces missed deadlines. | Medium |
-| 3.3 | **Show personal stats summary** (total rides, travel time saved) as a small card below sessions. Links to `/stats`. | Low — nice-to-have at-a-glance info. | Low |
+| 3.3 | **Show personal stats summary** (total rides, travel time saved) as a small card below sessions. Links to `/stats`. | Low — nice-to-have at-a-glance info. | Low | - probably out of scope - hard to calculate time saved and costs more on api usage  - add in a later version
 
 ---
 
@@ -110,7 +110,7 @@ A prioritised plan to improve functionality and streamline the UI/UX, based on a
 |---|--------|--------|--------|
 | 5.1 | **Reorganise the page into tabbed or collapsible sections.** Suggested tabs: **Overview** (status, date, venue, map), **RSVP**, **Attendees**, **Carpool** (assignments + map). Reduces scroll depth and lets users jump to what they care about. | High — the page is currently one long scroll, which on mobile can exceed 5+ screen heights. | Medium |
 | 5.2 | **Move the RSVP CTA to a sticky bottom bar on mobile.** A floating "RSVP" button (or the form itself as a bottom sheet) so users don't have to scroll past the map. | High — the most important action on this page is buried. | Medium |
-| 5.3 | **Show a countdown timer** to RSVP deadline when < 24 h remaining. Animated or at least refreshing every minute. | Medium — urgency cue. | Low |
+| 5.3 | **Show a countdown timer** to RSVP deadline when < 24 h remaining. Animated or at least refreshing every minute. | Medium — urgency cue. | Low | - dont do this
 | 5.4 | **Improve the `YourRideCard` / `YourDriveCard` prominence.** Move them above the map when present, with a highlighted background (e.g., accent-bordered panel). These are the **most actionable** pieces of info for a user on game day. | Medium — currently they can blend into the page. | Low |
 | 5.5 | **Show rider assignment status before publish.** When status is OPTIMISED, show "You've been assigned to [Driver]'s car" even before publish, with a "pending confirmation" label. Currently `YourRideCard` is hidden until PUBLISHED. | Medium — reduces anxiety for riders. | Low |
 
@@ -131,7 +131,7 @@ A prioritised plan to improve functionality and streamline the UI/UX, based on a
 | 6.1 | **Add a confirmation toast or banner** after RSVP submission ("You're in! Driving from Meguro Station."). Currently the form just resets/refetches, and the user has to scroll to the attendee list to verify. | High — immediate feedback is a UX fundamental. | Low |
 | 6.2 | **Show the user's current RSVP as a read-only summary** when the form is in "edit" mode (re-submitting). Make it clear they're **updating**, not creating. A small "Currently: Driving, 3 seats" above the form. | Medium — prevents confusion. | Low |
 | 6.3 | **Allow "Not attending" as an explicit RSVP option.** Currently users can RSVP as attending or not submit at all. An explicit "Can't make it" button that sets `attending: false` lets the team see definitive headcounts. | High — ambiguity between "hasn't responded" and "not coming" is a major team-app pain point. | Low |
-| 6.4 | **Add a fallback for StationSearch** when Google Maps API key is missing. Currently shows a text message. Instead, allow a **manual text input** for station name + optional lat/lng entry, so dev/testing works without API keys. | Low — dev experience, but also fallback for production key issues. | Medium |
+| 6.4 | **Add a fallback for StationSearch** when Google Maps API key is missing. Currently shows a text message. Instead, allow a **manual text input** for station name + optional lat/lng entry, so dev/testing works without API keys. | Low — dev experience, but also fallback for production key issues. | Medium |  - not now - later version
 
 ---
 
@@ -170,9 +170,9 @@ A prioritised plan to improve functionality and streamline the UI/UX, based on a
 | # | Change | Impact | Effort |
 |---|--------|--------|--------|
 | 8.1 | **Wire up `TravelChart.tsx`** to display personal travel time as a bar/line chart over sessions. It's already built — just needs to be imported into `StatsClient`. | High — the chart component is done and sitting unused; this is a quick win. | Low |
-| 8.2 | **Add the team leaderboard** using `/api/stats/team`. Show a ranked table: player name, total travel time, sessions attended, average travel time. | Medium — social/competitive element drives engagement. | Low |
+| 8.2 | **Add the team statistics** using `/api/stats/team`. Show a ranked table: player name, total travel time, sessions attended, average travel time. | Medium — social/fairness element drives engagement. | Low | - it is not competitive 
 | 8.3 | **Add date-range filtering** to the stats page. The API already supports `year`/`month` params via `sessionDateFilterFromSearchParams`. Wire up month/year selectors in the UI. | Medium — lets users compare seasons. | Low |
-| 8.4 | **Add a "carpool savings" metric.** Compare actual carpool travel time vs theoretical solo driving time (from step3 own-way data). Show "X minutes saved this month by carpooling." | Low — motivational, but requires data that may not always exist. | Medium |
+| 8.4 | **Add a "carpool savings" metric.** Compare actual carpool travel time vs theoretical solo driving time (from step3 own-way data). Show "X minutes saved this month by carpooling." | Low — motivational, but requires data that may not always exist. | Medium | - leave for vnext
 
 ---
 
@@ -225,9 +225,8 @@ A prioritised plan to improve functionality and streamline the UI/UX, based on a
 | # | Change | Impact | Effort |
 |---|--------|--------|--------|
 | 11.1 | **Add in-app toast notifications** for actions (RSVP submitted, assignments published, etc.). Use a lightweight toast library or a custom component. | High — immediate feedback for all user actions. | Medium |
-| 11.2 | **Add email notifications** for key events: RSVP deadline approaching (24h), assignments published, session created. Use a service like Resend, SendGrid, or Nodemailer + SMTP. | High — the single most impactful missing feature for a team coordination app. | High |
-| 11.3 | **Add a notification preferences page** (`/settings/notifications`). Let users opt in/out of email types. | Medium — required complement to 11.2. | Medium |
-| 11.4 | **Consider polling or Server-Sent Events** for the session detail page to live-update the attendee list and carpool assignments. Not critical but nice for game-day coordination. | Low — polish. | High |
+| 11.2 | **Add DISCORD BOT notifications** for key events: RSVP deadline approaching (24h), assignments published, session created. wire it up but integrate fully later with discord bot| High — the single most impactful missing feature for a team coordination app. | High |
+| 11.3 | **Add a notification preferences page** (`/settings/notifications`). Let users opt in/out of notification types. | Medium — required complement to 11.2. | Medium | - leave this for later
 
 ---
 
@@ -293,12 +292,13 @@ A prioritised plan to improve functionality and streamline the UI/UX, based on a
 
 ## Suggested Implementation Order
 
-Grouped by phase, optimising for impact-per-effort:
+Grouped by phase, optimising for impact-per-effort. **Deferred / vNext** items are called out in the tables above (out of scope, later version, or “leave for later”) — they are listed at the bottom, not scheduled here.
 
 ### Phase 1: Quick Wins (low effort, high/medium impact)
 
 - 1.2 Active route highlighting
 - 1.3 Skip-to-content link
+- 1.4 Breadcrumbs on nested session routes
 - 2.1 Wire middleware (`proxy.ts`)
 - 2.2 Redirect `/login` when authenticated
 - 4.3 Colour-coded status badges
@@ -310,7 +310,7 @@ Grouped by phase, optimising for impact-per-effort:
 - 7.2 Stale data warning
 - 7.3 Prominent unassigned riders
 - 8.1 Wire up TravelChart
-- 8.2 Add team leaderboard
+- 8.2 Wire `/api/stats/team` into the UI — summary table (not framed as a competitive leaderboard)
 - 8.3 Date-range filtering in stats
 - 9.1 Labels on create-user form
 - 12.1 `role="alert"` audit
@@ -323,11 +323,19 @@ Grouped by phase, optimising for impact-per-effort:
 - 1.1 Mobile hamburger menu
 - 3.2 RSVP deadline urgency banner
 - 4.1 Upcoming/Past tab toggle
+- 4.2 Status filter chips (admin)
+- 4.4 RSVP progress on session cards
 - 5.1 Tabbed/collapsible session detail sections
 - 5.2 Sticky RSVP bar on mobile
+- 6.2 RSVP “edit mode” summary (currently driving / riding)
+- 9.2 User search/filter
+- 9.3 Styled password-reset modal (replace `window.confirm`)
 - 10.1 Card layout for attendance on mobile
+- 10.2 Attendance summary counts
+- 10.3 Colour-code RSVP status cells
 - 11.1 In-app toast notifications
 - 13.1 Status transition validation
+- 13.4 RSVP field consistency in `parseRsvpBody`
 - 14.2 Larger mobile maps
 
 ### Phase 3: Feature Expansion (higher effort, high impact)
@@ -335,11 +343,10 @@ Grouped by phase, optimising for impact-per-effort:
 - 2.3 Change password page
 - 2.4 Forced password change on first login
 - 3.1 Show multiple upcoming sessions on home
-- 7.6 Auto-invalidate snapshot on session edit
+- 7.6 Invalidate optimisation snapshot when session venue/time is edited
 - 9.4 User deactivation
-- 11.2 Email notifications
-- 11.3 Notification preferences
-- 13.2 Auto-clear optimisation on venue/time change
+- 11.2 Discord bot notifications for key events — wire stubs now; full Discord integration later
+- 13.2 Auto-clear optimisation data when venue or time changes
 - 14.1 PWA support
 
 ### Phase 4: Polish & Advanced (highest effort)
@@ -347,7 +354,19 @@ Grouped by phase, optimising for impact-per-effort:
 - 7.4 Auto-assign remaining riders
 - 7.5 Drag-and-drop assignment editor
 - 10.4 Bulk attendance actions
-- 11.4 Real-time updates (SSE/polling)
+- 12.2 Table `scope` on headers
+- 12.4 `aria-busy` on submit buttons
+- 12.7 Light/dark theme toggle (or system preference)
 - 13.3 Admin audit log
-- 14.3 Bottom sheet modals
+- 14.3 Bottom sheet modals on mobile
 - 14.4 Pull-to-refresh
+
+### Deferred / vNext (not scheduled above)
+
+| # | Item | Note from plan |
+|---|------|----------------|
+| 3.3 | Home: personal stats summary | Out of scope for now — hard to define “time saved”, extra API cost; later version |
+| 5.3 | Countdown to RSVP deadline | **Do not implement** |
+| 6.4 | StationSearch manual fallback | Later version |
+| 8.4 | “Carpool savings” metric | vNext |
+| 11.3 | Notification preferences page | Leave for later |
