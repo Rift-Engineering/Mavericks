@@ -1,0 +1,102 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id           String   @id @default(cuid())
+  email        String   @unique
+  passwordHash String
+  name         String
+  role         Role     @default(PLAYER)
+  createdAt    DateTime @default(now())
+  rsvps        RSVP[]
+}
+
+enum Role {
+  PLAYER
+  ADMIN
+}
+
+model Session {
+  id               String          @id @default(cuid())
+  name             String
+  date             DateTime
+  locationName     String
+  locationLat      Float
+  locationLng      Float
+  rsvpDeadline     DateTime
+  status           SessionStatus   @default(OPEN)
+  createdAt        DateTime        @default(now())
+  updatedAt        DateTime        @updatedAt
+  rsvps            RSVP[]
+  carpoolGroups    CarpoolGroup[]
+  optimisationSnap OptimisationSnapshot?
+}
+
+enum SessionStatus {
+  OPEN
+  CLOSED
+  OPTIMISED
+  PUBLISHED
+}
+
+model RSVP {
+  id                  String         @id @default(cuid())
+  userId              String
+  sessionId           String
+  attending           Boolean
+  transportMode       TransportMode?
+  needsCarpool        Boolean        @default(false)
+  isDriver            Boolean        @default(false)
+  pickupStation       String?
+  pickupLat           Float?
+  pickupLng           Float?
+  availableSeats      Int?
+  calcDepartureTime   DateTime?
+  calcDriveToVenueMin Int?
+  startLocation       String?
+  startLat            Float?
+  startLng            Float?
+  travelTimeMin       Int?
+  transitToPickupMin  Int?
+  createdAt           DateTime       @default(now())
+  updatedAt           DateTime       @updatedAt
+
+  user           User          @relation(fields: [userId], references: [id], onDelete: Cascade)
+  session        Session       @relation(fields: [sessionId], references: [id], onDelete: Cascade)
+  carpoolGroupId String?
+  carpoolGroup   CarpoolGroup? @relation("RiderGroup", fields: [carpoolGroupId], references: [id])
+  driverOfGroup  CarpoolGroup? @relation("DriverRsvp")
+
+  @@unique([userId, sessionId])
+}
+
+enum TransportMode {
+  DRIVING
+  PUBLIC_TRANSPORT
+  WALKING
+}
+
+model CarpoolGroup {
+  id           String @id @default(cuid())
+  sessionId    String
+  driverRsvpId String @unique
+  session      Session @relation(fields: [sessionId], references: [id], onDelete: Cascade)
+  driverRsvp   RSVP    @relation("DriverRsvp", fields: [driverRsvpId], references: [id], onDelete: Cascade)
+  riders       RSVP[]  @relation("RiderGroup")
+}
+
+model OptimisationSnapshot {
+  id        String   @id @default(cuid())
+  sessionId String   @unique
+  session   Session  @relation(fields: [sessionId], references: [id], onDelete: Cascade)
+  step1Json Json?
+  step2Json Json?
+  step3Json Json?
+  updatedAt DateTime @updatedAt
+}

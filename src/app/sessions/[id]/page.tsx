@@ -1,0 +1,120 @@
+import Link from "next/link";
+import { notFound, redirect } from "next/navigation";
+import { getSession } from "@/lib/auth";
+import { prisma } from "@/lib/db";
+import { syncSessionStatus } from "@/lib/sync-session-status";
+import { sessionStatusLabel } from "@/lib/session-utils";
+import { MapEmbed } from "@/components/MapEmbed";
+import { RSVPForm } from "@/components/RSVPForm";
+import { AttendeeList } from "@/components/AttendeeList";
+import { CarpoolAssignments } from "@/components/CarpoolAssignments";
+import { YourRideCard } from "@/components/YourRideCard";
+
+export default async function SessionDetailPage({
+  params,
+}: {
+  params: Promise<{ id: string }>;
+}) {
+  const { id } = await params;
+  const sessionUser = await getSession();
+  if (!sessionUser) redirect("/login");
+
+  const raw = await prisma.session.findUnique({
+    where: { id },
+    include: {
+      rsvps: {
+        include: {
+          user: { select: { id: true, name: true, email: true } },
+          carpoolGroup: {
+            include: {
+              driverRsvp: { include: { user: { select: { name: true } } } },
+            },
+          },
+        },
+      },
+      carpoolGroups: {
+        include: {
+          driverRsvp: { include: { user: { select: { id: true, name: true } } } },
+          riders: { include: { user: { select: { id: true, name: true } } } },
+        },
+      },
+    },
+  });
+
+  if (!raw) notFound();
+
+  const s = await syncSessionStatus(raw);
+  const session = { ...raw, ...s };
+  const myRsvp = session.rsvps.find((r) => r.userId === sessionUser.sub) ?? null;
+
+  const showAssignments = session.status === "PUBLISHED" || session.status === "OPTIMISED";
+  const showPublicAssignments = session.status === "PUBLISHED";
+
+  return (
+    <div className="space-y-8">
+      <div className="flex flex-wrap items-start justify-between gap-4">
+        <div>
+          <p className="text-xs uppercase tracking-wide text-[#a0a0a0]">
+            {sessionStatusLabel(session.status)}
+          </p>
+          <h1 className="mt-1 text-2xl font-semibold text-white">{session.name}</h1>
+          <p className="mt-2 text-[#a0a0a0]">
+            {session.date.toLocaleString("en-GB", {
+              weekday: "long",
+              month: "long",
+              day: "numeric",
+              hour: "2-digit",
+              minute: "2-digit",
+              timeZone: "Asia/Tokyo",
+            })}
+          </p>
+          <p className="mt-1 text-white">{session.locationName}</p>
+          <p className="mt-2 text-sm text-[#a0a0a0]">
+            RSVP by{" "}
+            {session.rsvpDeadline.toLocaleString("en-GB", {
+              timeZone: "Asia/Tokyo",
+            })}
+          </p>
+        </div>
+        {sessionUser.role === "ADMIN" && (
+          <div className="flex flex-col gap-2">
+            <Link
+              href={`/sessions/${id}/assignments`}
+              className="rounded-lg border border-[#8b1a1a] px-4 py-2 text-center text-sm text-[#8b1a1a] hover:bg-[#8b1a1a]/10"
+            >
+              Manage assignments
+            </Link>
+            <Link
+              href={`/sessions/${id}/edit`}
+              className="rounded-lg border border-white/20 px-4 py-2 text-center text-sm text-[#a0a0a0] hover:text-white"
+            >
+              Edit session
+            </Link>
+          </div>
+        )}
+      </div>
+
+      <MapEmbed lat={session.locationLat} lng={session.locationLng} title={session.locationName} />
+
+      {showPublicAssignments &&
+        myRsvp?.needsCarpool &&
+        myRsvp.carpoolGroup &&
+        myRsvp.carpoolGroupId && (
+          <YourRideCard rsvp={myRsvp} sessionDate={session.date} />
+        )}
+
+      <RSVPForm session={session} existing={myRsvp} />
+
+      <div>
+        <h2 className="text-lg font-medium text-white">Who&apos;s coming</h2>
+        <div className="mt-4">
+          <AttendeeList rsvps={session.rsvps} />
+        </div>
+      </div>
+
+      {showAssignments && (
+        <CarpoolAssignments groups={session.carpoolGroups} sessionTime={session.date} />
+      )}
+    </div>
+  );
+}
