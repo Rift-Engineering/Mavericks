@@ -108,7 +108,7 @@ export default async function SessionDetailPage({
               href={`/sessions/${id}/assignments`}
               className="rounded-lg border border-[#8b1a1a] px-4 py-2 text-center text-sm text-[#8b1a1a] hover:bg-[#8b1a1a]/10"
             >
-              Manage assignments
+              Manage / Optimise Carpooling
             </Link>
             <Link
               href={`/sessions/${id}/edit`}

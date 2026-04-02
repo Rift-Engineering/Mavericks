@@ -48,6 +48,12 @@ export async function Nav() {
           </span>
         </Link>
         <nav className="flex flex-wrap items-center gap-3 text-sm">
+          <Link
+            href="/help"
+            className="font-help-serif text-[0.95rem] tracking-wide text-[#c4a574] hover:text-[#e8d4b0]"
+          >
+            Help
+          </Link>
           <Link href="/sessions" className="text-[#a0a0a0] hover:text-white">
             Sessions
           </Link>

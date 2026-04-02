@@ -25,4 +25,8 @@ body {
   .tap-target {
     @apply min-h-11 min-w-11;
   }
+
+  .font-help-serif {
+    font-family: var(--font-help-serif), ui-serif, Georgia, serif;
+  }
 }
