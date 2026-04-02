@@ -1,0 +1,210 @@
+[00:00:00] S1: Do you mind me recording?
+[00:00:05] S1: Are you there?
+[00:00:07] S2: Yeah,
+[00:00:08] S1: Do
+[00:00:08] S2: we
+[00:00:08] S1: you mind me recording?
+[00:00:09] S2: can't keep talking.
+[00:00:10] S2: No,
+[00:00:11] S2: no, no, not at all.
+[00:00:12] S1: Okay, cool.
+[00:00:13] S1: Yeah, keep going,
+[00:00:13] S1: explain.
+[00:00:15] S2: Yeah, so for example, we have a training at Tokyo Station and people will...
+[00:00:25] S2: The drivers will start driving from where they live but actually people are spreading like people live in various places and what people do is just get people to come to where the driver lives which is sometimes very hard for some people but sometimes even if you get the driver gets them to come to where they live but you
+[00:00:52] S2: The drive-thru, I can hear they're pleased to get
+[00:00:56] S1: So
+[00:00:56] S2: to the place
+[00:00:57] S1: they drive right back past where they live already.
+[00:01:01] S2: Yeah, like sometimes because they don't have work right train to get to or the driver is just being lazy or you just can't with them you can't just bother calculating all of those things.
+[00:01:20] S2: And it might be useful for them to, for the driver to get somebody to come, I don't know, a station where more
+[00:01:29] S1: Yeah.
+[00:01:29] S2: makes sense than getting, rather than getting people to come to where the driver lives.
+[00:01:35] S1: So you'd look at where the driver is going to have to put him where they start driving from.
+[00:01:43] S1: The session location's already decided.
+[00:01:47] S2: Yeah.
+[00:01:47] S1: And then, so all the people say,
+[00:01:50] S1: I'm driving and I'm driving starting from here.
+[00:01:54] S1: And then all the people who are not driving say,
+[00:01:57] S1: I want to get picked up or carpool and I live here. And then you want an output that is like,
+[00:02:07] S1: this driver should.
+[00:02:12] S1: pick up this person here and this
+[00:02:15] S2: Yes,
+[00:02:15] S1: driver should pick
+[00:02:16] S2: okay.
+[00:02:16] S1: up this
+[00:02:16] S2: Maybe
+[00:02:16] S1: person
+[00:02:16] S2: it's
+[00:02:17] S1: here
+[00:02:17] S2: too complicated,
+[00:02:17] S1: no I don't think it is but they'd also have to say how many like spare seats they have I think
+[00:02:27] S2: We do it manually,
+[00:02:28] S2: like one of the leadership,
+[00:02:30] S2: one of the people in leadership just do it.
+[00:02:34] S2: And
+[00:02:34] S1: Yeah.
+[00:02:35] S2: sometimes how they need to get cars, the number of people can fit in the cars is limited.
+[00:02:41] S2: Some people, but always we have a couple of people who have to travel all the way to, I don't know, into the city to get a lift because the cars are full,
+[00:02:53] S2: the cars around their place is full.
+[00:02:58] S1: Yep.
+[00:03:00] S2: Yeah, and
+[00:03:01] S1: Um.
+[00:03:01] S2: even it might sometimes useful for them to just take a train.
+[00:03:10] S2: like we can't just calculate everything and
+[00:03:12] S1: Yeah that's
+[00:03:13] S2: we just
+[00:03:13] S1: really
+[00:03:13] S2: can't like even do
+[00:03:14] S1: there's so many options like it builds a really complex like option possibility lists because everyone can train to anywhere and every driver can drive any direction and any route right
+[00:03:32] S1: Yeah, so it would obviously take like longer to calculate. I'll have to have a think about the implementation.
+[00:03:38] S1: But let me and we'd obviously put some limitations on it because trying to find the perfect solution is just going to be like a huge calculation. But if you put some thresholds on it, like driver shouldn't like have to deviate from their perfect route by more than 10,
+[00:03:57] S1: 15 minutes, then then.
+[00:04:00] S1: And it only gives like less options to look at because otherwise it's like going to be trying to search every spot in Japan for like where to go.
+[00:04:12] S1: I'm also thinking,
+[00:04:13] S1: yeah, I'm
+[00:04:15] S2: Yeah, you go first.
+[00:04:17] S1: thinking about that one on top of the session tracking to combine that with the session history tracking I think would be pretty hard like because.
+[00:04:30] S1: like the travel time I think the users might have to just like put it in manually then like because you can't really like build that on top of this like that's a big job like that's some complex software to do to try and like look and say oh this person like drove here picked up that person and then like that took them this long add that to how long it was you know like it's too much
+[00:05:00] S1: But you could definitely keep this session tracker.
+[00:05:05] S1: I could make it a really slimmed down one for a history,
+[00:05:08] S1: but each user just like puts in how long it took them to get there to everything.
+[00:05:15] S1: And then it just does that.
+[00:05:17] S1: So you keep track instead of. So for the session tracking,
+[00:05:23] S1: you would.
+[00:05:25] S1: Like, delete,
+[00:05:29] S1: get rid of the optimization and like venue picking features and then change it so that each user just puts in for each session,
+[00:05:41] S1: took me this long to get there and I attended or I didn't attend.
+[00:05:46] S2: Nie.
+[00:05:46] S1: And admin can override everything.
+[00:05:51] S1: Does it sound like it would like obviously the carpooling one I think that sounds more important to you as like something useful that actually adds a lot of value and the history tracking is like pretty cool and nice to have.
+[00:06:04] S2: Yeah, cool and interesting,
+[00:06:06] S2: yeah.
+[00:06:06] S1: Yeah.
+[00:06:08] S1: Okay.
+[00:06:09] S2: And maybe I'm not sure, but it might be useful or interesting to see if you can add, if you're doing the pool thing,
+[00:06:24] S2: if we can see,
+[00:06:27] S2: if we can put them, if we can make it show up the difference.
+[00:06:33] S2: Between the time difference between you go straight to the destination and you make some, when you make some detour because
+[00:06:45] S1: Yeah.
+[00:06:46] S2: people are nice but people
+[00:06:50] S2: They sometimes don't bother making detour because they sometimes just believe it's an extra 30 minutes and they
+[00:07:00] S1: Really, it's only five
+[00:07:01] S2: can just
+[00:07:01] S1: minutes.
+[00:07:01] S2: ignore it.
+[00:07:02] S1: Like, yeah.
+[00:07:02] S2: Exactly.
+[00:07:03] S2: That's one of the things that I have found it funny is the training camp location. We usually have a training camp at the same location.
+[00:07:17] S2: And it's through the city and maybe about one third of people lives like near city,
+[00:07:27] S2: they're not in the city but near the city and then the drivers are driving from a bit like far away from the city but they are driving through the city to get to training camp field.
+[00:07:43] S2: But they can't, it sounds,
+[00:07:47] S2: it just sounds too hard for them to pick them up on the way because it's minutes and minutes.
+[00:07:54] S1: Yeah and maybe if it showed like this will add 10 minutes to your trip but it will save
+[00:08:05] S1: um
+[00:08:05] S2: Yeah,
+[00:08:05] S1: sally 45 minutes yeah
+[00:08:08] S2: exactly,
+[00:08:08] S2: like that.
+[00:08:09] S2: I think drivers should know how long people take to get to the, them,
+[00:08:17] S2: to get to them.
+[00:08:20] S1: so it would show like
+[00:08:24] S1: If we didn't do it optimally,
+[00:08:26] S1: this is how bad it would be. This is like what it's saving.
+[00:08:29] S1: I think that would come second, like second feature,
+[00:08:32] S1: like maybe take me a while to work on and I have other projects. I could really probably quickly implement the kind of like.
+[00:08:43] S1: optimal pickup one yeah and because that's just that's like saving you time and effort that's kind of like what you care about because you're you can you kind of just tell them like hey you're picking up hit this person here like and you could explain to them as well
+[00:09:03] S2: Yeah, it's
+[00:09:03] S1: that
+[00:09:03] S2: all the driver's decision.
+[00:09:05] S2: Currently it's all driver's decision.
+[00:09:07] S1: but you could also explain to them that like
+[00:09:11] S1: like your friend built something that like did all the calculation to optimize even if i even if i can't like prove that this time was saved and whatever like then they might be willing to use the like the output before the other parts build like
+[00:09:28] S2: Definitely will, yeah.
+[00:09:29] S1: i think it's going to be kind of hard to show the time saved part because like you don't really know what they would have done instead
+[00:09:39] S1: like without
+[00:09:39] S2: Yes,
+[00:09:40] S1: this do
+[00:09:40] S2: right.
+[00:09:40] S1: you know what I mean like they might have said come to my house and I'll drive you or they might have said meet me at this station or something else like it's it's hard to know what the alternative to compare to is if that makes sense that's
+[00:09:55] S2: Yeah,
+[00:09:56] S1: that's
+[00:09:56] S2: that's right.
+[00:09:56] S1: why it's a hard feature that part like to show you said you've you've added this much time they've saved this much time is a hard feature to add I think
+[00:10:08] S1: But,
+[00:10:08] S2: Yeah.
+[00:10:09] S1: you could definitely, like, explain that this is what is optimal for everyone in the team to,
+[00:10:18] S1: like,
+[00:10:20] S1: well,
+[00:10:24] S1: yeah,
+[00:10:25] S1: like,
+[00:10:25] S1: this is what's optimal pickup location.
+[00:10:28] S1: Based
+[00:10:28] S2: Yep.
+[00:10:28] S1: on how many seats everyone said they have and who's willing to drive and stuff like and someone explained that it's been calculated it's not random and then people will probably do it right they'd pick up at the right spot yeah I think that's cool that's actually really cool and it would I think it would be saving a lot of time for your people so there's value add for you because you don't have to decide and there's actual value add for them
+[00:10:57] S2: Yeah.
+[00:10:58] S1: Yeah.
+[00:10:59] S2: Yeah.
+[00:10:59] S2: Sakura has been doing it and it's, I don't know,
+[00:11:04] S2: it's, yeah,
+[00:11:05] S2: it will be very helpful if we have it.
+[00:11:07] S1: Is it a lot of work and time and texting back and forth?
+[00:11:15] S2: It doesn't take a lot of time for just per,
+[00:11:20] S2: like.
+[00:11:22] S2: training but because we have so many trainings every weekend and many tournaments that we attend or events like if we if we think about the work overall yes it is I think it is a big job and mentally as well
+[00:11:45] S1: What's your current workflow?
+[00:11:47] S1: Like how do you?
+[00:11:49] S1: Do this,
+[00:11:50] S1: you text everyone.
+[00:11:52] S2: Yep, we messaged that we sent a chat message to the group chat saying who can drive to the trainings this weekend and people say me me me me and we will get we'll get maybe about five or six people drivers and then
+[00:12:15] S2: The leadership just allocates people manually.
+[00:12:20] S1: Yeah, okay.
+[00:12:22] S1: Interesting.
+[00:12:25] S1: And you know where everyone lives. So that's how you and you just kind of use your best intuition.
+[00:12:33] S2: Yeah, but it sometimes doesn't, it's sometimes not right.
+[00:12:39] S1: Yeah,
+[00:12:39] S1: of course.
+[00:12:42] S1: So you're just like, you know, Sally says I'm driving and I've got three seats and then you just sort of think, oh,
+[00:12:50] S1: Bob, Charlie live here and here. They're pretty close. Like they go with Sally.
+[00:12:55] S1: Okay.
+[00:12:56] S1: Yeah.
+[00:12:57] S2: Yeah,
+[00:12:57] S1: Very interesting.
+[00:13:01] S1: Nice.
+[00:13:03] S1: Okay,
+[00:13:03] S1: I'll have a think about it.
+[00:13:06] S2: that'll be good.
+[00:13:07] S1: Awesome.
+[00:13:09] S1: Wait,
+[00:13:10] S1: hang on. Before we go,
+[00:13:11] S2: Yes.
+[00:13:13] S1: the
+[00:13:13] S2: Yes.
+[00:13:14] S1: part where like, say the driver says I'm driving,
+[00:13:22] S1: oh,
+[00:13:26] S1: two questions.
+[00:13:27] S1: So the driver will say that they're driving and they have this many seats.
+[00:13:31] S1: The people who are not driving,
+[00:13:32] S1: do they always get picked up or would they sometimes?
+[00:13:37] S1: go by themselves on a train or something okay
+[00:13:40] S2: Almost always they get picked up for
+[00:13:45] S1: yeah
+[00:13:46] S2: tournament.
+[00:13:47] S2: And
+[00:13:47] S1: yeah yeah
+[00:13:49] S2: they almost always get picked up for some trainings, except it's really one training location currently.
+[00:14:01] S1: okay so we could just say like doesn't
+[00:14:05] S1: Need like the users who aren't driving they could just click like for a session like or a tournament
+[00:14:14] S1: Don't need to pick up like get there myself and they won't be included in any calculation
+[00:14:20] S2: Yeah, they
+[00:14:20] S1: Something like it
+[00:14:21] S2: don't want to be picked and get picked up.
+[00:14:25] S1: Yeah,
+[00:14:25] S1: but they can say no I don't want to be included and my mom's driving me or I'm catching the train or something like yeah cool Okay
+[00:14:36] S1: Think that was the anything else that would like be needed to know
+[00:14:45] S1: I think that's it.
+[00:14:46] S1: Yeah.
+[00:14:47] S2: Yeah, this is very cool, Rich.
+[00:14:49] S1: Yes.
+[00:14:50] S2: How long did it take for you to create this app from scratch?
+[00:14:56] S1: I've stopped recording.

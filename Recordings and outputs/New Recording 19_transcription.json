@@ -1,0 +1,1319 @@
+{
+  "text": "People, most people will just take public transport if you can, but there are always some people driving to the training field and if you can add a feature where people just say I'm driving and then the car seat, I have three car seats available and if people can.\nable to see it and then could tell yes I want to get picked up or I want to go with you and by just clicking a button on this page and so that nobody needs to organize anything\nRight. Wait, Like can you go currently. through it one more time? Sorry. So currently for regular, we Hang on, just take public hang on, transport. hang on. The Wi-Fi cut out. Go back 10 seconds.\nYeah, so currently for normal training, for normal trainings, most people would just take public transport if you can, but there are always some people who would drive to trainings and if you can add a feature where, sorry, and then people say I'm driving if anyone wants to.\nwants to have a lift you can just react or it's manual like people just say it in a group chat but if this app has a feature a service feature where people can say like people just click I'm driving and then if everyone else or is be able is able to see\nThis person is driving so you can just click it and then you can just the driver can know who wants to go with you and they just\nThey can just go together, like Yeah, yeah, it's like, like a simplified, connection. like a simple version where people just say, I've got two free seats and someone else says like, oh, I'm interested, like, can I come with you? Yeah, like if you're putting the information, those information into this thing anyway, then.\nOh you're saying like once the information's input it gets like shown to everyone and so Right. Yes, that's what I meant. all the drivers have like put it in and then I'm just thinking how like is it is the same thing does this work the same way like every draw every player\nputs Hmm. puts in like I'm driving or not driving and if they say driving they say how many seats and where they're coming from and then the ones who are not driving put in I'm interested in carpooling but by default they\nare like assumed to be getting there by themselves yeah Yes. and does it need to have the functionality that they can like pick who they want to drive with or like\nlike wouldn't we still want to just like optimize who they should drive with or is it things about like friends want to drive with friends even if it's not optimized yeah Not for the eventual trainings where people could take public transport, but we do, I think we do want that to be.\ndata for tournaments yeah Yeah, because it's a long drive, you mean? You yes don't want to drive with like, you don't want to drive with someone you don't know. and then yeah and then you come back very late at night\nAnd you can't, you don't really want to take Talk. trains. It's not. Wait, no, I think we're like mixed message here. Yours, like what I'm asking is why do you need a feature where like a passenger can choose which drivers they're happy to go with?\nWhy can't they be offered every driver like like Yeah, weren't you saying that That's the passengers would also fine. say I'm only interested in going with Bob and Charlie but not Kate Is what were you not saying that did I get something wrong\nYeah, I think it's just because I was imagining, I think I had an imaginary page, what the page looks like. Yeah. I was imagining that you would see the next training session at the Tokyo station.\nLike one she's driving and Kylie is driving and then there will be a button next to the driver like available seat three or something like Yeah. that and then you just click it and then it let the driver know this person wants to go with you and\nThen driver can just message those people who are interested in going with with the driver. okay so yeah this is you're actually just talking about a really simple minimum viable thing like even simpler than everything i've done already just like a little thing where you just they do it themselves but they just tell them they're driving tell them they want to come and it puts them connect them together\nYeah. Oh, that's sick. Yeah. I can do that like so Yeah. fast. Yeah. And also if we are putting those information, I think that those informations are the information that we are expecting us to put in for the other features anyway. So if you're adding, putting those information then.\nYep. We can use those information back Okay. this as Yep. well. If we're doing that.\nway then everyone would have to give all the information like if we're using the simple like chat thing where they like you know i can easily connect it up to like a whatsapp autobot or something where they like just Ah, respond okay. so that like each session gets sent to a group message and then the bot sends a poll and everyone clicks it or whatever but that way to collect the data but if people don't respond\nor like Yeah. whatever then the admin like won't be able to get optimization thing to work but we can think about that i'll what We use Discord for all perfect a the communication tool is Discord. discord bot is actually the perfect thing for this then um oh that's sick okay so\nJust let's like not focus on the optimizer now because for Yeah, okay. the training sessions like you can you can like\nYou don't need complete data and you don't need to make the decisions for people and this this takes the work out of your hands of like figuring it out so it'll just be up to people for them to do it like you'll you'll put in the session and time and location and then they'll respond with this this many seats this many whatever and it'll like\npair them up together oh Maybe you could add text box so that the drivers can put, say, something I'm happy to pick up from these stations or yeah okay then people can use.\nbefore they like so I think it's more efficient because like so they don't need they to don't communicate have to go on chat yeah or they can like use google maps figure it out themselves and then like just say i'll be i can go here um i'm just thinking here so\nwhat at the moment isn't that kind of already what you do at the moment though everyone just sends into the group what they're doing and but Yeah, but some drivers just don't say it because they're both communicating it. do you think if like if if it like sent a poll in and they just had to like\nyeah click and say how many seats and yes Yeah. i'm happy to but if they don't communicate already why would they communicate now that's what i think you I know what i mean because dude it's interesting. It's more fun. It's more fun way to communicate. right would so that would be like without any kind of like optimizing it would just be just be a way to\nStop you having to like say who's driving like how many seats have you got and then like all these messages that kind of like don't they're all in a big chain and but this way it would just like collect all the data and then like put it back in like a little dashboard with like some this driver is going with this many seats and whatever.\nYeah, okay. And then the output of that would just be that the driver can then message the passenger that said I want to come with you. Is that right? Yeah. We can even take attendance from the information.\nYeah. The lens of the training So you reckon that your like people wouldn't, you think your people wouldn't, the website I've got at the moment, you think they wouldn't like all go in there and put in like how long it took me and each session and all that stuff like attendance, they're not going to bother to like ever fill out information like that on like.\nform or anything so it's like to track attendance would have to be like really really simple like they just tick a box and it stores their phone number or their discord username like even having to get them to put in their name and address like too much right Yeah, yeah it needs to be simple.\nYeah, okay. Yeah. Alright, I'll have a think about something like simple for that first one, whip up a little like discord thing and see if it works. It's good because the other projects I'm working on, it's getting too hard at the moment and I need...",
+  "segments": [
+    {
+      "type": "transcript.text.segment",
+      "text": " People,",
+      "speaker": "A",
+      "start": 0.884,
+      "end": 1.3840000000000003,
+      "id": "seg_0"
+    },
+    {
+      "type": "transcript.text.segment",
+      "text": " most people will just take public transport if you can,",
+      "speaker": "A",
+      "start": 1.4340000000000002,
+      "end": 5.984,
+      "id": "seg_1"
+    },
+    {
+      "type": "transcript.text.segment",
+      "text": " but there are always some people driving to the training field and if you can add a feature where people just say I'm driving and then the car seat,",
+      "speaker": "A",
+      "start": 6.084,
+      "end": 23.084,
+      "id": "seg_2"
+    },
+    {
+      "type": "transcript.text.segment",
+      "text": " I have three car seats available and if people can.",
+      "speaker": "A",
+      "start": 23.184,
+      "end": 27.884,
+      "id": "seg_3"
+    },
+    {
+      "type": "transcript.text.segment",
+      "text": " able to see it and then could tell yes I want to get picked up or I want to go with you and by just clicking a button on this page and so that nobody needs to organize anything",
+      "speaker": "A",
+      "start": 28.82,
+      "end": 51.72,
+      "id": "seg_4"
+    },
+    {
+      "type": "transcript.text.segment",
+      "text": " Right.",
+      "speaker": "B",
+      "start": 52.884,
+      "end": 53.534,
+      "id": "seg_5"
+    },
+    {
+      "type": "transcript.text.segment",
+      "text": " Wait,",
+      "speaker": "B",
+      "start": 53.884,
+      "end": 54.334,
+      "id": "seg_6"
+    },
+    {
+      "type": "transcript.text.segment",
+      "text": " Like",
+      "speaker": "A",
+      "start": 54.334,
+      "end": 54.434,
+      "id": "seg_7"
+    },
+    {
+      "type": "transcript.text.segment",
+      "text": " can you go",
+      "speaker": "B",
+      "start": 54.434,
+      "end": 54.984,
+      "id": "seg_8"
+    },
+    {
+      "type": "transcript.text.segment",
+      "text": " currently.",
+      "speaker": "A",
+      "start": 54.984,
+      "end": 55.334,
+      "id": "seg_9"
+    },
+    {
+      "type": "transcript.text.segment",
+      "text": " through it one more time?",
+      "speaker": "B",
+      "start": 55.334,
+      "end": 57.934,
+      "id": "seg_10"
+    },
+    {
+      "type": "transcript.text.segment",
+      "text": " Sorry.",
+      "speaker": "B",
+      "start": 58.034,
+      "end": 58.384,
+      "id": "seg_11"
+    },
+    {
+      "type": "transcript.text.segment",
+      "text": " So currently for regular,",
+      "speaker": "A",
+      "start": 59.234,
+      "end": 62.984,
+      "id": "seg_12"
+    },
+    {
+      "type": "transcript.text.segment",
+      "text": " we",
+      "speaker": "A",
+      "start": 63.084,
+      "end": 64.034,
+      "id": "seg_13"
+    },
+    {
+      "type": "transcript.text.segment",
+      "text": " Hang on,",
+      "speaker": "B",
+      "start": 65.334,
+      "end": 65.634,
+      "id": "seg_14"
+    },
+    {
+      "type": "transcript.text.segment",
+      "text": " just take public",
+      "speaker": "A",
+      "start": 65.634,
+      "end": 66.23400000000001,
+      "id": "seg_15"
+    },
+    {
+      "type": "transcript.text.segment",
+      "text": " hang on,",
+      "speaker": "B",
+      "start": 66.23400000000001,
+      "end": 66.384,
+      "id": "seg_16"
+    },
+    {
+      "type": "transcript.text.segment",
+      "text": " transport.",
+      "speaker": "A",
+      "start": 66.384,
+      "end": 66.534,
+      "id": "seg_17"
+    },
+    {
+      "type": "transcript.text.segment",
+      "text": " hang on.",
+      "speaker": "B",
+      "start": 66.534,
+      "end": 66.834,
+      "id": "seg_18"
+    },
+    {
+      "type": "transcript.text.segment",
+      "text": "",
+      "speaker": "A",
+      "start": 66.834,
+      "end": 66.884,
+      "id": "seg_19"
+    },
+    {
+      "type": "transcript.text.segment",
+      "text": " The Wi-Fi cut out. Go back 10 seconds.",
+      "speaker": "B",
+      "start": 66.884,
+      "end": 69.634,
+      "id": "seg_20"
+    },
+    {
+      "type": "transcript.text.segment",
+      "text": " Yeah, so currently for normal training,",
+      "speaker": "A",
+      "start": 70.9,
+      "end": 74.30000000000001,
+      "id": "seg_21"
+    },
+    {
+      "type": "transcript.text.segment",
+      "text": " for normal trainings, most people would just take public transport if you can,",
+      "speaker": "A",
+      "start": 74.35000000000001,
+      "end": 81.0,
+      "id": "seg_22"
+    },
+    {
+      "type": "transcript.text.segment",
+      "text": " but there are always some people who would drive to trainings and if you can add a feature where,",
+      "speaker": "A",
+      "start": 81.10000000000001,
+      "end": 92.30000000000001,
+      "id": "seg_23"
+    },
+    {
+      "type": "transcript.text.segment",
+      "text": " sorry,",
+      "speaker": "A",
+      "start": 92.45,
+      "end": 94.30000000000001,
+      "id": "seg_24"
+    },
+    {
+      "type": "transcript.text.segment",
+      "text": " and then people say I'm driving if anyone wants to.",
+      "speaker": "A",
+      "start": 94.5,
+      "end": 98.4,
+      "id": "seg_25"
+    },
+    {
+      "type": "transcript.text.segment",
+      "text": " wants to have a lift you can just react or it's manual like people just say it in a group chat but if this app has a feature a service feature where people can say like people just click I'm driving and then if everyone else or is be able is able to see",
+      "speaker": "A",
+      "start": 100.276,
+      "end": 129.176,
+      "id": "seg_26"
+    },
+    {
+      "type": "transcript.text.segment",
+      "text": " This person is driving so you can just click it and then you can just the driver can know who wants to go with you and they just",
+      "speaker": "A",
+      "start": 130.068,
+      "end": 142.768,
+      "id": "seg_27"
+    },
+    {
+      "type": "transcript.text.segment",
+      "text": " They can just go together,",
+      "speaker": "A",
+      "start": 144.052,
+      "end": 145.50199999999998,
+      "id": "seg_28"
+    },
+    {
+      "type": "transcript.text.segment",
+      "text": " like",
+      "speaker": "A",
+      "start": 145.652,
+      "end": 145.902,
+      "id": "seg_29"
+    },
+    {
+      "type": "transcript.text.segment",
+      "text": " Yeah, yeah,",
+      "speaker": "B",
+      "start": 145.902,
+      "end": 146.552,
+      "id": "seg_30"
+    },
+    {
+      "type": "transcript.text.segment",
+      "text": " it's",
+      "speaker": "A",
+      "start": 146.552,
+      "end": 146.702,
+      "id": "seg_31"
+    },
+    {
+      "type": "transcript.text.segment",
+      "text": " like, like a simplified,",
+      "speaker": "B",
+      "start": 146.702,
+      "end": 148.25199999999998,
+      "id": "seg_32"
+    },
+    {
+      "type": "transcript.text.segment",
+      "text": " connection.",
+      "speaker": "A",
+      "start": 148.25199999999998,
+      "end": 148.452,
+      "id": "seg_33"
+    },
+    {
+      "type": "transcript.text.segment",
+      "text": " like a simple version where people just say,",
+      "speaker": "B",
+      "start": 148.452,
+      "end": 151.75199999999998,
+      "id": "seg_34"
+    },
+    {
+      "type": "transcript.text.segment",
+      "text": " I've got two free seats and someone else says like, oh, I'm interested,",
+      "speaker": "B",
+      "start": 151.852,
+      "end": 159.102,
+      "id": "seg_35"
+    },
+    {
+      "type": "transcript.text.segment",
+      "text": " like, can I come with you?",
+      "speaker": "B",
+      "start": 159.152,
+      "end": 160.952,
+      "id": "seg_36"
+    },
+    {
+      "type": "transcript.text.segment",
+      "text": " Yeah, like if you're putting the information,",
+      "speaker": "A",
+      "start": 160.952,
+      "end": 164.152,
+      "id": "seg_37"
+    },
+    {
+      "type": "transcript.text.segment",
+      "text": " those information into this thing anyway,",
+      "speaker": "A",
+      "start": 164.302,
+      "end": 167.75199999999998,
+      "id": "seg_38"
+    },
+    {
+      "type": "transcript.text.segment",
+      "text": " then.",
+      "speaker": "A",
+      "start": 167.952,
+      "end": 168.402,
+      "id": "seg_39"
+    },
+    {
+      "type": "transcript.text.segment",
+      "text": " Oh you're saying like once the information's input it gets like shown to everyone and so",
+      "speaker": "B",
+      "start": 170.004,
+      "end": 177.45399999999998,
+      "id": "seg_40"
+    },
+    {
+      "type": "transcript.text.segment",
+      "text": " Right.",
+      "speaker": "A",
+      "start": 177.45399999999998,
+      "end": 177.754,
+      "id": "seg_41"
+    },
+    {
+      "type": "transcript.text.segment",
+      "text": "",
+      "speaker": "B",
+      "start": 177.754,
+      "end": 177.804,
+      "id": "seg_42"
+    },
+    {
+      "type": "transcript.text.segment",
+      "text": " Yes, that's what I meant.",
+      "speaker": "A",
+      "start": 177.804,
+      "end": 180.204,
+      "id": "seg_43"
+    },
+    {
+      "type": "transcript.text.segment",
+      "text": " all the drivers have like put it in and then I'm just thinking how like is it is the same thing does this work the same way like every draw every player",
+      "speaker": "B",
+      "start": 180.204,
+      "end": 194.954,
+      "id": "seg_44"
+    },
+    {
+      "type": "transcript.text.segment",
+      "text": " puts",
+      "speaker": "B",
+      "start": 195.988,
+      "end": 195.988,
+      "id": "seg_45"
+    },
+    {
+      "type": "transcript.text.segment",
+      "text": " Hmm.",
+      "speaker": "A",
+      "start": 195.988,
+      "end": 196.338,
+      "id": "seg_46"
+    },
+    {
+      "type": "transcript.text.segment",
+      "text": " puts in like I'm driving or not driving and if they say driving they say how many seats and where they're coming from and then the ones who are not driving put in I'm interested in carpooling but by default they",
+      "speaker": "B",
+      "start": 196.338,
+      "end": 219.988,
+      "id": "seg_47"
+    },
+    {
+      "type": "transcript.text.segment",
+      "text": " are like assumed to be getting there by themselves yeah",
+      "speaker": "B",
+      "start": 222.036,
+      "end": 227.786,
+      "id": "seg_48"
+    },
+    {
+      "type": "transcript.text.segment",
+      "text": " Yes.",
+      "speaker": "A",
+      "start": 227.786,
+      "end": 228.386,
+      "id": "seg_49"
+    },
+    {
+      "type": "transcript.text.segment",
+      "text": " and does it need to have the functionality that they can like pick who they want to drive with or like",
+      "speaker": "B",
+      "start": 228.386,
+      "end": 237.486,
+      "id": "seg_50"
+    },
+    {
+      "type": "transcript.text.segment",
+      "text": " like wouldn't we still want to just like optimize who they should drive with or is it things about like friends want to drive with friends even if it's not optimized yeah",
+      "speaker": "B",
+      "start": 238.996,
+      "end": 249.29600000000002,
+      "id": "seg_51"
+    },
+    {
+      "type": "transcript.text.segment",
+      "text": " Not for the eventual trainings where people could take public transport,",
+      "speaker": "A",
+      "start": 249.29600000000002,
+      "end": 257.996,
+      "id": "seg_52"
+    },
+    {
+      "type": "transcript.text.segment",
+      "text": " but we do,",
+      "speaker": "A",
+      "start": 258.146,
+      "end": 261.296,
+      "id": "seg_53"
+    },
+    {
+      "type": "transcript.text.segment",
+      "text": " I think we do want that to be.",
+      "speaker": "A",
+      "start": 261.446,
+      "end": 265.046,
+      "id": "seg_54"
+    },
+    {
+      "type": "transcript.text.segment",
+      "text": " data for tournaments yeah",
+      "speaker": "A",
+      "start": 268.142,
+      "end": 271.892,
+      "id": "seg_55"
+    },
+    {
+      "type": "transcript.text.segment",
+      "text": " Yeah,",
+      "speaker": "B",
+      "start": 271.892,
+      "end": 272.592,
+      "id": "seg_56"
+    },
+    {
+      "type": "transcript.text.segment",
+      "text": " because it's a long drive, you mean?",
+      "speaker": "B",
+      "start": 272.692,
+      "end": 276.592,
+      "id": "seg_57"
+    },
+    {
+      "type": "transcript.text.segment",
+      "text": " You",
+      "speaker": "B",
+      "start": 276.692,
+      "end": 276.892,
+      "id": "seg_58"
+    },
+    {
+      "type": "transcript.text.segment",
+      "text": " yes",
+      "speaker": "A",
+      "start": 276.892,
+      "end": 277.342,
+      "id": "seg_59"
+    },
+    {
+      "type": "transcript.text.segment",
+      "text": " don't want to drive with like, you don't want to drive with someone you don't know.",
+      "speaker": "B",
+      "start": 277.342,
+      "end": 284.292,
+      "id": "seg_60"
+    },
+    {
+      "type": "transcript.text.segment",
+      "text": " and then yeah and then you come back very late at night",
+      "speaker": "A",
+      "start": 284.292,
+      "end": 287.092,
+      "id": "seg_61"
+    },
+    {
+      "type": "transcript.text.segment",
+      "text": " And you can't, you don't really want to take",
+      "speaker": "A",
+      "start": 288.052,
+      "end": 290.452,
+      "id": "seg_62"
+    },
+    {
+      "type": "transcript.text.segment",
+      "text": " Talk.",
+      "speaker": "B",
+      "start": 290.452,
+      "end": 291.302,
+      "id": "seg_63"
+    },
+    {
+      "type": "transcript.text.segment",
+      "text": " trains.",
+      "speaker": "A",
+      "start": 291.302,
+      "end": 291.90200000000004,
+      "id": "seg_64"
+    },
+    {
+      "type": "transcript.text.segment",
+      "text": " It's not.",
+      "speaker": "A",
+      "start": 292.802,
+      "end": 293.35200000000003,
+      "id": "seg_65"
+    },
+    {
+      "type": "transcript.text.segment",
+      "text": " Wait,",
+      "speaker": "B",
+      "start": 293.502,
+      "end": 294.202,
+      "id": "seg_66"
+    },
+    {
+      "type": "transcript.text.segment",
+      "text": " no,",
+      "speaker": "B",
+      "start": 294.252,
+      "end": 294.60200000000003,
+      "id": "seg_67"
+    },
+    {
+      "type": "transcript.text.segment",
+      "text": " I think we're like mixed message here.",
+      "speaker": "B",
+      "start": 294.752,
+      "end": 298.202,
+      "id": "seg_68"
+    },
+    {
+      "type": "transcript.text.segment",
+      "text": " Yours, like what I'm asking is why do you need a feature where like a passenger can choose which drivers they're happy to go with?",
+      "speaker": "B",
+      "start": 298.35200000000003,
+      "end": 314.35200000000003,
+      "id": "seg_69"
+    },
+    {
+      "type": "transcript.text.segment",
+      "text": " Why can't they be offered every driver like like",
+      "speaker": "B",
+      "start": 316.372,
+      "end": 320.322,
+      "id": "seg_70"
+    },
+    {
+      "type": "transcript.text.segment",
+      "text": " Yeah,",
+      "speaker": "A",
+      "start": 323.572,
+      "end": 324.072,
+      "id": "seg_71"
+    },
+    {
+      "type": "transcript.text.segment",
+      "text": " weren't you saying that",
+      "speaker": "B",
+      "start": 327.622,
+      "end": 328.572,
+      "id": "seg_72"
+    },
+    {
+      "type": "transcript.text.segment",
+      "text": " That's",
+      "speaker": "A",
+      "start": 328.572,
+      "end": 328.72200000000004,
+      "id": "seg_73"
+    },
+    {
+      "type": "transcript.text.segment",
+      "text": " the passengers would",
+      "speaker": "B",
+      "start": 328.72200000000004,
+      "end": 329.372,
+      "id": "seg_74"
+    },
+    {
+      "type": "transcript.text.segment",
+      "text": " also fine.",
+      "speaker": "A",
+      "start": 329.372,
+      "end": 329.772,
+      "id": "seg_75"
+    },
+    {
+      "type": "transcript.text.segment",
+      "text": " say I'm only interested in going with Bob and Charlie but not Kate",
+      "speaker": "B",
+      "start": 329.772,
+      "end": 334.872,
+      "id": "seg_76"
+    },
+    {
+      "type": "transcript.text.segment",
+      "text": " Is what were you not saying that did I get something wrong",
+      "speaker": "B",
+      "start": 336.272,
+      "end": 339.522,
+      "id": "seg_77"
+    },
+    {
+      "type": "transcript.text.segment",
+      "text": " Yeah, I think it's just because I was imagining,",
+      "speaker": "A",
+      "start": 345.876,
+      "end": 348.676,
+      "id": "seg_78"
+    },
+    {
+      "type": "transcript.text.segment",
+      "text": " I think I had an imaginary page,",
+      "speaker": "A",
+      "start": 348.77599999999995,
+      "end": 355.77599999999995,
+      "id": "seg_79"
+    },
+    {
+      "type": "transcript.text.segment",
+      "text": " what the page looks like.",
+      "speaker": "A",
+      "start": 356.82599999999996,
+      "end": 359.07599999999996,
+      "id": "seg_80"
+    },
+    {
+      "type": "transcript.text.segment",
+      "text": " Yeah.",
+      "speaker": "B",
+      "start": 359.07599999999996,
+      "end": 359.57599999999996,
+      "id": "seg_81"
+    },
+    {
+      "type": "transcript.text.segment",
+      "text": " I was imagining that you would see the next training session at the Tokyo station.",
+      "speaker": "A",
+      "start": 359.57599999999996,
+      "end": 371.57599999999996,
+      "id": "seg_82"
+    },
+    {
+      "type": "transcript.text.segment",
+      "text": " Like one she's driving and Kylie is driving and then there will be a button next to the driver like available seat three or something like",
+      "speaker": "A",
+      "start": 374.196,
+      "end": 385.74600000000004,
+      "id": "seg_83"
+    },
+    {
+      "type": "transcript.text.segment",
+      "text": " Yeah.",
+      "speaker": "B",
+      "start": 385.74600000000004,
+      "end": 385.79600000000005,
+      "id": "seg_84"
+    },
+    {
+      "type": "transcript.text.segment",
+      "text": " that and then you just click it and then it let the driver know this person wants to go with you and",
+      "speaker": "A",
+      "start": 385.79600000000005,
+      "end": 392.79600000000005,
+      "id": "seg_85"
+    },
+    {
+      "type": "transcript.text.segment",
+      "text": " Then driver can just message those people who are interested in going with with the driver.",
+      "speaker": "A",
+      "start": 394.004,
+      "end": 401.154,
+      "id": "seg_86"
+    },
+    {
+      "type": "transcript.text.segment",
+      "text": " okay so yeah this is you're actually just talking about a really simple minimum viable thing like even simpler than everything i've done already just like a little thing where you just they do it themselves but they just tell them they're driving tell them they want to come and it puts them connect them together",
+      "speaker": "B",
+      "start": 401.154,
+      "end": 420.754,
+      "id": "seg_87"
+    },
+    {
+      "type": "transcript.text.segment",
+      "text": " Yeah.",
+      "speaker": "A",
+      "start": 421.64799999999997,
+      "end": 422.198,
+      "id": "seg_88"
+    },
+    {
+      "type": "transcript.text.segment",
+      "text": " Oh, that's sick.",
+      "speaker": "B",
+      "start": 422.34799999999996,
+      "end": 423.748,
+      "id": "seg_89"
+    },
+    {
+      "type": "transcript.text.segment",
+      "text": " Yeah.",
+      "speaker": "A",
+      "start": 423.748,
+      "end": 424.09799999999996,
+      "id": "seg_90"
+    },
+    {
+      "type": "transcript.text.segment",
+      "text": " I can do that like so",
+      "speaker": "B",
+      "start": 424.09799999999996,
+      "end": 425.59799999999996,
+      "id": "seg_91"
+    },
+    {
+      "type": "transcript.text.segment",
+      "text": " Yeah.",
+      "speaker": "A",
+      "start": 425.59799999999996,
+      "end": 425.748,
+      "id": "seg_92"
+    },
+    {
+      "type": "transcript.text.segment",
+      "text": " fast.",
+      "speaker": "B",
+      "start": 425.748,
+      "end": 426.298,
+      "id": "seg_93"
+    },
+    {
+      "type": "transcript.text.segment",
+      "text": " Yeah. And also if we are putting those information, I think that those informations are the information that we are expecting us to put in for the other features anyway.",
+      "speaker": "A",
+      "start": 427.39799999999997,
+      "end": 441.948,
+      "id": "seg_94"
+    },
+    {
+      "type": "transcript.text.segment",
+      "text": " So if you're adding,",
+      "speaker": "A",
+      "start": 442.09799999999996,
+      "end": 443.498,
+      "id": "seg_95"
+    },
+    {
+      "type": "transcript.text.segment",
+      "text": " putting those information then.",
+      "speaker": "A",
+      "start": 443.548,
+      "end": 445.64799999999997,
+      "id": "seg_96"
+    },
+    {
+      "type": "transcript.text.segment",
+      "text": " Yep.",
+      "speaker": "B",
+      "start": 446.42,
+      "end": 446.42,
+      "id": "seg_97"
+    },
+    {
+      "type": "transcript.text.segment",
+      "text": " We can use those information back",
+      "speaker": "A",
+      "start": 446.42,
+      "end": 449.42,
+      "id": "seg_98"
+    },
+    {
+      "type": "transcript.text.segment",
+      "text": " Okay.",
+      "speaker": "B",
+      "start": 449.42,
+      "end": 449.72,
+      "id": "seg_99"
+    },
+    {
+      "type": "transcript.text.segment",
+      "text": " this as",
+      "speaker": "A",
+      "start": 449.72,
+      "end": 450.82,
+      "id": "seg_100"
+    },
+    {
+      "type": "transcript.text.segment",
+      "text": " Yep.",
+      "speaker": "B",
+      "start": 450.82,
+      "end": 451.22,
+      "id": "seg_101"
+    },
+    {
+      "type": "transcript.text.segment",
+      "text": " well.",
+      "speaker": "A",
+      "start": 451.22,
+      "end": 452.12,
+      "id": "seg_102"
+    },
+    {
+      "type": "transcript.text.segment",
+      "text": " If we're doing that.",
+      "speaker": "B",
+      "start": 452.12,
+      "end": 453.87,
+      "id": "seg_103"
+    },
+    {
+      "type": "transcript.text.segment",
+      "text": " way then everyone would have to give all the information like if we're using the simple like chat thing where they like you know i can easily connect it up to like a whatsapp autobot or something where they like just",
+      "speaker": "B",
+      "start": 454.388,
+      "end": 469.988,
+      "id": "seg_104"
+    },
+    {
+      "type": "transcript.text.segment",
+      "text": " Ah,",
+      "speaker": "A",
+      "start": 469.988,
+      "end": 470.388,
+      "id": "seg_105"
+    },
+    {
+      "type": "transcript.text.segment",
+      "text": " respond",
+      "speaker": "B",
+      "start": 470.388,
+      "end": 470.53799999999995,
+      "id": "seg_106"
+    },
+    {
+      "type": "transcript.text.segment",
+      "text": " okay.",
+      "speaker": "A",
+      "start": 470.53799999999995,
+      "end": 470.78799999999995,
+      "id": "seg_107"
+    },
+    {
+      "type": "transcript.text.segment",
+      "text": " so that like each session gets sent to a group message and then the bot sends a poll and everyone clicks it or whatever but that way to collect the data but if people don't respond",
+      "speaker": "B",
+      "start": 470.78799999999995,
+      "end": 482.938,
+      "id": "seg_108"
+    },
+    {
+      "type": "transcript.text.segment",
+      "text": " or like",
+      "speaker": "B",
+      "start": 483.092,
+      "end": 483.74199999999996,
+      "id": "seg_109"
+    },
+    {
+      "type": "transcript.text.segment",
+      "text": " Yeah.",
+      "speaker": "A",
+      "start": 483.74199999999996,
+      "end": 483.99199999999996,
+      "id": "seg_110"
+    },
+    {
+      "type": "transcript.text.segment",
+      "text": " whatever then the admin like won't be able to get optimization thing to work but we can think about that i'll what",
+      "speaker": "B",
+      "start": 483.99199999999996,
+      "end": 492.74199999999996,
+      "id": "seg_111"
+    },
+    {
+      "type": "transcript.text.segment",
+      "text": " We use Discord for all",
+      "speaker": "A",
+      "start": 492.74199999999996,
+      "end": 495.692,
+      "id": "seg_112"
+    },
+    {
+      "type": "transcript.text.segment",
+      "text": " perfect a",
+      "speaker": "B",
+      "start": 495.692,
+      "end": 497.442,
+      "id": "seg_113"
+    },
+    {
+      "type": "transcript.text.segment",
+      "text": " the communication tool is Discord.",
+      "speaker": "A",
+      "start": 497.442,
+      "end": 502.592,
+      "id": "seg_114"
+    },
+    {
+      "type": "transcript.text.segment",
+      "text": " discord bot is actually the perfect thing for this then um oh that's sick okay so",
+      "speaker": "B",
+      "start": 502.592,
+      "end": 510.042,
+      "id": "seg_115"
+    },
+    {
+      "type": "transcript.text.segment",
+      "text": " Just let's like not focus on the optimizer now because for",
+      "speaker": "B",
+      "start": 511.028,
+      "end": 516.878,
+      "id": "seg_116"
+    },
+    {
+      "type": "transcript.text.segment",
+      "text": " Yeah, okay.",
+      "speaker": "A",
+      "start": 516.878,
+      "end": 517.378,
+      "id": "seg_117"
+    },
+    {
+      "type": "transcript.text.segment",
+      "text": " the training sessions like you can you can like",
+      "speaker": "B",
+      "start": 517.378,
+      "end": 527.2280000000001,
+      "id": "seg_118"
+    },
+    {
+      "type": "transcript.text.segment",
+      "text": " You don't need complete data and you don't need to make the decisions for people and this this takes the work out of your hands of like figuring it out so it'll just be up to people for them to do it like you'll you'll put in the session and time and location and then they'll respond with this this many seats this many whatever and it'll like",
+      "speaker": "B",
+      "start": 527.828,
+      "end": 554.6279999999999,
+      "id": "seg_119"
+    },
+    {
+      "type": "transcript.text.segment",
+      "text": " pair them up together oh",
+      "speaker": "B",
+      "start": 556.212,
+      "end": 559.512,
+      "id": "seg_120"
+    },
+    {
+      "type": "transcript.text.segment",
+      "text": " Maybe you could add text box so that the drivers can put, say,",
+      "speaker": "A",
+      "start": 562.512,
+      "end": 571.212,
+      "id": "seg_121"
+    },
+    {
+      "type": "transcript.text.segment",
+      "text": " something I'm happy to pick up from these stations or",
+      "speaker": "A",
+      "start": 571.412,
+      "end": 575.762,
+      "id": "seg_122"
+    },
+    {
+      "type": "transcript.text.segment",
+      "text": " yeah okay",
+      "speaker": "B",
+      "start": 577.162,
+      "end": 577.812,
+      "id": "seg_123"
+    },
+    {
+      "type": "transcript.text.segment",
+      "text": " then people can use.",
+      "speaker": "A",
+      "start": 578.112,
+      "end": 581.262,
+      "id": "seg_124"
+    },
+    {
+      "type": "transcript.text.segment",
+      "text": " before they like so I think it's more efficient because",
+      "speaker": "A",
+      "start": 582.5840000000001,
+      "end": 590.3340000000001,
+      "id": "seg_125"
+    },
+    {
+      "type": "transcript.text.segment",
+      "text": " like so",
+      "speaker": "B",
+      "start": 590.3340000000001,
+      "end": 590.884,
+      "id": "seg_126"
+    },
+    {
+      "type": "transcript.text.segment",
+      "text": " they don't need",
+      "speaker": "A",
+      "start": 590.884,
+      "end": 591.234,
+      "id": "seg_127"
+    },
+    {
+      "type": "transcript.text.segment",
+      "text": " they",
+      "speaker": "B",
+      "start": 591.234,
+      "end": 591.284,
+      "id": "seg_128"
+    },
+    {
+      "type": "transcript.text.segment",
+      "text": " to",
+      "speaker": "A",
+      "start": 591.284,
+      "end": 591.384,
+      "id": "seg_129"
+    },
+    {
+      "type": "transcript.text.segment",
+      "text": " don't",
+      "speaker": "B",
+      "start": 591.384,
+      "end": 591.4340000000001,
+      "id": "seg_130"
+    },
+    {
+      "type": "transcript.text.segment",
+      "text": " communicate",
+      "speaker": "A",
+      "start": 591.4340000000001,
+      "end": 591.534,
+      "id": "seg_131"
+    },
+    {
+      "type": "transcript.text.segment",
+      "text": " have to go on chat yeah or they can like use google maps figure it out themselves and then like just say i'll be i can go here um i'm just thinking here so",
+      "speaker": "B",
+      "start": 591.534,
+      "end": 605.884,
+      "id": "seg_132"
+    },
+    {
+      "type": "transcript.text.segment",
+      "text": " what at the moment isn't that kind of already what you do at the moment though everyone just sends into the group what they're doing and but",
+      "speaker": "B",
+      "start": 611.316,
+      "end": 622.366,
+      "id": "seg_133"
+    },
+    {
+      "type": "transcript.text.segment",
+      "text": " Yeah, but some drivers just don't say it because they're both communicating it.",
+      "speaker": "A",
+      "start": 622.366,
+      "end": 630.666,
+      "id": "seg_134"
+    },
+    {
+      "type": "transcript.text.segment",
+      "text": " do you think if like if if it like sent a poll in and they just had to like",
+      "speaker": "B",
+      "start": 631.066,
+      "end": 638.816,
+      "id": "seg_135"
+    },
+    {
+      "type": "transcript.text.segment",
+      "text": " yeah click and say how many seats and yes",
+      "speaker": "B",
+      "start": 642.516,
+      "end": 646.366,
+      "id": "seg_136"
+    },
+    {
+      "type": "transcript.text.segment",
+      "text": " Yeah.",
+      "speaker": "A",
+      "start": 646.366,
+      "end": 646.8159999999999,
+      "id": "seg_137"
+    },
+    {
+      "type": "transcript.text.segment",
+      "text": " i'm happy to but if they don't communicate already why would they communicate now that's what i think you",
+      "speaker": "B",
+      "start": 646.8159999999999,
+      "end": 655.216,
+      "id": "seg_138"
+    },
+    {
+      "type": "transcript.text.segment",
+      "text": " I",
+      "speaker": "A",
+      "start": 655.216,
+      "end": 655.266,
+      "id": "seg_139"
+    },
+    {
+      "type": "transcript.text.segment",
+      "text": " know what i mean because dude",
+      "speaker": "B",
+      "start": 655.266,
+      "end": 655.966,
+      "id": "seg_140"
+    },
+    {
+      "type": "transcript.text.segment",
+      "text": " it's interesting.",
+      "speaker": "A",
+      "start": 655.966,
+      "end": 656.766,
+      "id": "seg_141"
+    },
+    {
+      "type": "transcript.text.segment",
+      "text": " It's more fun.",
+      "speaker": "A",
+      "start": 658.1659999999999,
+      "end": 659.3159999999999,
+      "id": "seg_142"
+    },
+    {
+      "type": "transcript.text.segment",
+      "text": " It's more fun way to communicate.",
+      "speaker": "A",
+      "start": 659.4159999999999,
+      "end": 661.366,
+      "id": "seg_143"
+    },
+    {
+      "type": "transcript.text.segment",
+      "text": " right would so that would be like without any kind of like optimizing it would just be just be a way to",
+      "speaker": "B",
+      "start": 662.5659999999999,
+      "end": 671.0659999999999,
+      "id": "seg_144"
+    },
+    {
+      "type": "transcript.text.segment",
+      "text": " Stop you having to like say who's driving like how many seats have you got and then like all these messages that kind of like don't they're all in a big chain and but this way it would just like collect all the data and then like put it back in like a little dashboard with like some this driver is going with this many seats and whatever.",
+      "speaker": "B",
+      "start": 672.244,
+      "end": 699.9440000000001,
+      "id": "seg_145"
+    },
+    {
+      "type": "transcript.text.segment",
+      "text": " Yeah, okay.",
+      "speaker": "B",
+      "start": 702.132,
+      "end": 702.982,
+      "id": "seg_146"
+    },
+    {
+      "type": "transcript.text.segment",
+      "text": " And then the output of that would just be that the driver can then message the passenger that said I want to come with you.",
+      "speaker": "B",
+      "start": 706.232,
+      "end": 719.132,
+      "id": "seg_147"
+    },
+    {
+      "type": "transcript.text.segment",
+      "text": " Is that right?",
+      "speaker": "B",
+      "start": 720.382,
+      "end": 721.5319999999999,
+      "id": "seg_148"
+    },
+    {
+      "type": "transcript.text.segment",
+      "text": " Yeah.",
+      "speaker": "B",
+      "start": 722.882,
+      "end": 723.482,
+      "id": "seg_149"
+    },
+    {
+      "type": "transcript.text.segment",
+      "text": " We can even take attendance from the information.",
+      "speaker": "A",
+      "start": 723.982,
+      "end": 728.132,
+      "id": "seg_150"
+    },
+    {
+      "type": "transcript.text.segment",
+      "text": " Yeah.",
+      "speaker": "B",
+      "start": 729.428,
+      "end": 729.428,
+      "id": "seg_151"
+    },
+    {
+      "type": "transcript.text.segment",
+      "text": " The lens of the training",
+      "speaker": "A",
+      "start": 729.428,
+      "end": 730.828,
+      "id": "seg_152"
+    },
+    {
+      "type": "transcript.text.segment",
+      "text": " So you reckon that your like people wouldn't, you think your people wouldn't, the website I've got at the moment, you think they wouldn't like all go in there and put in like how long it took me and each session and all that stuff like attendance,",
+      "speaker": "B",
+      "start": 731.228,
+      "end": 751.978,
+      "id": "seg_153"
+    },
+    {
+      "type": "transcript.text.segment",
+      "text": " they're not going to bother to like ever fill out information like that on like.",
+      "speaker": "B",
+      "start": 752.078,
+      "end": 756.928,
+      "id": "seg_154"
+    },
+    {
+      "type": "transcript.text.segment",
+      "text": " form or anything so it's like to track attendance would have to be like really really simple like they just tick a box and",
+      "speaker": "B",
+      "start": 758.324,
+      "end": 769.6239999999999,
+      "id": "seg_155"
+    },
+    {
+      "type": "transcript.text.segment",
+      "text": " it stores their phone number or their discord username like even having to get them to put in their name and address like too much right",
+      "speaker": "B",
+      "start": 771.424,
+      "end": 779.174,
+      "id": "seg_156"
+    },
+    {
+      "type": "transcript.text.segment",
+      "text": " Yeah, yeah it needs to be simple.",
+      "speaker": "A",
+      "start": 781.424,
+      "end": 783.6239999999999,
+      "id": "seg_157"
+    },
+    {
+      "type": "transcript.text.segment",
+      "text": " Yeah, okay.",
+      "speaker": "B",
+      "start": 784.916,
+      "end": 785.7660000000001,
+      "id": "seg_158"
+    },
+    {
+      "type": "transcript.text.segment",
+      "text": " Yeah.",
+      "speaker": "A",
+      "start": 786.066,
+      "end": 787.3660000000001,
+      "id": "seg_159"
+    },
+    {
+      "type": "transcript.text.segment",
+      "text": " Alright, I'll have a think about something like simple for that first one,",
+      "speaker": "B",
+      "start": 787.3660000000001,
+      "end": 791.416,
+      "id": "seg_160"
+    },
+    {
+      "type": "transcript.text.segment",
+      "text": " whip up a little like discord thing and see if it works.",
+      "speaker": "B",
+      "start": 791.5160000000001,
+      "end": 796.5160000000001,
+      "id": "seg_161"
+    },
+    {
+      "type": "transcript.text.segment",
+      "text": " It's good because the other projects I'm working on, it's getting too hard at the moment and I need...",
+      "speaker": "B",
+      "start": 797.416,
+      "end": 803.0160000000001,
+      "id": "seg_162"
+    }
+  ],
+  "usage": {
+    "type": "tokens",
+    "total_tokens": 34979,
+    "input_tokens": 12672,
+    "input_token_details": {
+      "text_tokens": 718,
+      "audio_tokens": 11954
+    },
+    "output_tokens": 22307
+  }
+}
