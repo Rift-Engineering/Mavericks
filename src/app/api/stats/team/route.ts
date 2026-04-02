@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import { prisma } from "@/lib/db";
 import { getSession } from "@/lib/auth";
+import { sessionDateFilterFromSearchParams } from "@/lib/stats-session-date-filter";
 
 export async function GET(request: Request) {
   const session = await getSession();
@@ -9,20 +10,7 @@ export async function GET(request: Request) {
   }
 
   const url = new URL(request.url);
-  const year = url.searchParams.get("year");
-  const month = url.searchParams.get("month");
-
-  const sessionFilter: { gte: Date; lte?: Date } = { gte: new Date(0) };
-  if (year && month) {
-    const y = Number(year);
-    const m = Number(month) - 1;
-    sessionFilter.gte = new Date(y, m, 1);
-    sessionFilter.lte = new Date(y, m + 1, 0, 23, 59, 59, 999);
-  } else if (year) {
-    const y = Number(year);
-    sessionFilter.gte = new Date(y, 0, 1);
-    sessionFilter.lte = new Date(y, 11, 31, 23, 59, 59, 999);
-  }
+  const sessionFilter = sessionDateFilterFromSearchParams(url);
 
   const rsvps = await prisma.rSVP.findMany({
     where: {

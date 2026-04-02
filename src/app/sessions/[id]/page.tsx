@@ -4,11 +4,13 @@ import { getSession } from "@/lib/auth";
 import { prisma } from "@/lib/db";
 import { syncSessionStatus } from "@/lib/sync-session-status";
 import { sessionStatusLabel } from "@/lib/session-utils";
+import { CarpoolSessionMap } from "@/components/CarpoolSessionMap";
 import { MapEmbed } from "@/components/MapEmbed";
 import { RSVPForm } from "@/components/RSVPForm";
 import { AttendeeList } from "@/components/AttendeeList";
 import { CarpoolAssignments } from "@/components/CarpoolAssignments";
 import { YourRideCard } from "@/components/YourRideCard";
+import { YourDriveCard } from "@/components/YourDriveCard";
 
 export default async function SessionDetailPage({
   params,
@@ -49,6 +51,30 @@ export default async function SessionDetailPage({
 
   const showAssignments = session.status === "PUBLISHED" || session.status === "OPTIMISED";
   const showPublicAssignments = session.status === "PUBLISHED";
+
+  const carpoolMapGroups = session.carpoolGroups
+    .map((g) => {
+      const plat = g.driverRsvp.pickupLat;
+      const plng = g.driverRsvp.pickupLng;
+      if (plat == null || plng == null) return null;
+      return {
+        id: g.id,
+        driverName: g.driverRsvp.user.name,
+        pickupLabel: g.driverRsvp.pickupStation ?? "Pickup",
+        driverLat: plat,
+        driverLng: plng,
+        riders: g.riders
+          .filter((r) => r.startLat != null && r.startLng != null)
+          .map((r) => ({
+            name: r.user.name,
+            lat: r.startLat as number,
+            lng: r.startLng as number,
+          })),
+      };
+    })
+    .filter((g): g is NonNullable<typeof g> => g != null);
+
+  const showCarpoolMap = showAssignments && carpoolMapGroups.length > 0;
 
   return (
     <div className="space-y-8">
@@ -94,7 +120,18 @@ export default async function SessionDetailPage({
         )}
       </div>
 
-      <MapEmbed lat={session.locationLat} lng={session.locationLng} title={session.locationName} />
+      {showCarpoolMap ? (
+        <CarpoolSessionMap
+          venueName={session.locationName}
+          venueLat={session.locationLat}
+          venueLng={session.locationLng}
+          groups={carpoolMapGroups}
+        />
+      ) : (
+        <MapEmbed lat={session.locationLat} lng={session.locationLng} title={session.locationName} />
+      )}
+
+      {myRsvp?.attending && myRsvp.isDriver && <YourDriveCard rsvp={myRsvp} />}
 
       {showPublicAssignments &&
         myRsvp?.needsCarpool &&

@@ -2,7 +2,7 @@ import { NextResponse } from "next/server";
 import { prisma } from "@/lib/db";
 import { getSession } from "@/lib/auth";
 import { syncSessionStatus } from "@/lib/sync-session-status";
-import type { TransportMode } from "@prisma/client";
+import { parseRsvpBody, parsedRsvpToPrismaWrite } from "@/lib/parse-rsvp-body";
 
 export async function POST(
   request: Request,
@@ -25,80 +25,12 @@ export async function POST(
   }
 
   const body = await request.json();
-  const attending = Boolean(body.attending);
-
-  let needsCarpool = false;
-  let isDriver = false;
-  let transportMode: TransportMode | null = null;
-  let pickupStation: string | null = null;
-  let pickupLat: number | null = null;
-  let pickupLng: number | null = null;
-  let availableSeats: number | null = null;
-  let startLocation: string | null = null;
-  let startLat: number | null = null;
-  let startLng: number | null = null;
-
-  if (attending) {
-    const mode = body.carpoolMode as string | undefined;
-    if (mode === "driver") {
-      isDriver = true;
-      needsCarpool = false;
-      pickupStation = typeof body.pickupStation === "string" ? body.pickupStation : "";
-      pickupLat = body.pickupLat != null ? Number(body.pickupLat) : null;
-      pickupLng = body.pickupLng != null ? Number(body.pickupLng) : null;
-      availableSeats = body.availableSeats != null ? Number(body.availableSeats) : null;
-      if (!pickupStation || !Number.isFinite(pickupLat) || !Number.isFinite(pickupLng)) {
-        return NextResponse.json({ error: "Pickup station and coordinates required for drivers" }, { status: 400 });
-      }
-      if (
-        availableSeats == null ||
-        !Number.isFinite(availableSeats) ||
-        availableSeats < 1
-      ) {
-        return NextResponse.json({ error: "At least one seat required" }, { status: 400 });
-      }
-    } else if (mode === "rider") {
-      needsCarpool = true;
-      isDriver = false;
-      startLocation = typeof body.startLocation === "string" ? body.startLocation : "";
-      startLat = body.startLat != null ? Number(body.startLat) : null;
-      startLng = body.startLng != null ? Number(body.startLng) : null;
-      if (!startLocation || !Number.isFinite(startLat) || !Number.isFinite(startLng)) {
-        return NextResponse.json({ error: "Start location required" }, { status: 400 });
-      }
-    } else if (mode === "own") {
-      needsCarpool = false;
-      isDriver = false;
-      const tm = body.transportMode as string | undefined;
-      if (tm === "DRIVING" || tm === "PUBLIC_TRANSPORT" || tm === "WALKING") {
-        transportMode = tm;
-      } else {
-        return NextResponse.json({ error: "Transport mode required" }, { status: 400 });
-      }
-      startLocation = typeof body.startLocation === "string" ? body.startLocation : "";
-      startLat = body.startLat != null ? Number(body.startLat) : null;
-      startLng = body.startLng != null ? Number(body.startLng) : null;
-      if (!startLocation || !Number.isFinite(startLat) || !Number.isFinite(startLng)) {
-        return NextResponse.json({ error: "Start location required" }, { status: 400 });
-      }
-    } else {
-      return NextResponse.json({ error: "Carpool preference required when attending" }, { status: 400 });
-    }
-  } else {
-    needsCarpool = false;
-    isDriver = false;
+  const parsed = parseRsvpBody(body);
+  if (!parsed.ok) {
+    return NextResponse.json({ error: parsed.error }, { status: 400 });
   }
 
-  const cleared = {
-    transportMode: null as TransportMode | null,
-    pickupStation: null as string | null,
-    pickupLat: null as number | null,
-    pickupLng: null as number | null,
-    availableSeats: null as number | null,
-    startLocation: null as string | null,
-    startLat: null as number | null,
-    startLng: null as number | null,
-  };
+  const write = parsedRsvpToPrismaWrite(parsed.data);
 
   const rsvp = await prisma.rSVP.upsert({
     where: {
@@ -107,39 +39,9 @@ export async function POST(
     create: {
       userId: session.sub,
       sessionId,
-      attending,
-      needsCarpool: attending ? needsCarpool : false,
-      isDriver: attending ? isDriver : false,
-      transportMode: attending ? transportMode : null,
-      pickupStation: attending && isDriver ? pickupStation : null,
-      pickupLat: attending && isDriver ? pickupLat : null,
-      pickupLng: attending && isDriver ? pickupLng : null,
-      availableSeats: attending && isDriver ? availableSeats : null,
-      startLocation:
-        attending && (needsCarpool || body.carpoolMode === "own") ? startLocation : null,
-      startLat: attending && (needsCarpool || body.carpoolMode === "own") ? startLat : null,
-      startLng: attending && (needsCarpool || body.carpoolMode === "own") ? startLng : null,
+      ...write,
     },
-    update: attending
-      ? {
-          attending: true,
-          needsCarpool,
-          isDriver,
-          transportMode,
-          pickupStation: isDriver ? pickupStation : null,
-          pickupLat: isDriver ? pickupLat : null,
-          pickupLng: isDriver ? pickupLng : null,
-          availableSeats: isDriver ? availableSeats : null,
-          startLocation: needsCarpool || body.carpoolMode === "own" ? startLocation : null,
-          startLat: needsCarpool || body.carpoolMode === "own" ? startLat : null,
-          startLng: needsCarpool || body.carpoolMode === "own" ? startLng : null,
-        }
-      : {
-          attending: false,
-          needsCarpool: false,
-          isDriver: false,
-          ...cleared,
-        },
+    update: write,
   });
 
   return NextResponse.json({ rsvp });

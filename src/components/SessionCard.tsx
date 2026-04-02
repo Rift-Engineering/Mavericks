@@ -1,5 +1,6 @@
 import Link from "next/link";
 import type { RSVP, Session, User } from "@prisma/client";
+import { YourDriveCard } from "@/components/YourDriveCard";
 
 type SessionWithOptional = Session & {
   rsvps?: RSVP[];
@@ -68,6 +69,12 @@ export function SessionCard({
             {badge.label}
           </span>
         </div>
+
+        {userRsvp?.attending && userRsvp.isDriver && (
+          <div className="pt-2">
+            <YourDriveCard rsvp={userRsvp} />
+          </div>
+        )}
       </div>
 
       {publishedRide?.carpoolGroup && (

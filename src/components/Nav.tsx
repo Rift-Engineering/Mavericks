@@ -11,13 +11,13 @@ export async function Nav() {
       <header className="border-b border-white/10 bg-[#0a0a0a]/95 backdrop-blur">
         <div className="mx-auto flex max-w-lg items-center justify-between px-4 py-3 md:max-w-4xl">
           <Link href="/login" className="flex items-center gap-2">
-            <div className="relative h-10 w-10 overflow-hidden rounded-full bg-[#8b1a1a]">
+            <div className="relative h-10 w-10 overflow-hidden rounded-full bg-black">
               <Image
-                src="/logo.svg"
+                src="/mavericks_logo.png"
                 alt="Tokyo Mavericks"
                 width={40}
                 height={40}
-                className="object-cover"
+                className="object-contain"
                 priority
               />
             </div>
@@ -34,17 +34,17 @@ export async function Nav() {
     <header className="border-b border-white/10 bg-[#0a0a0a]/95 backdrop-blur">
       <div className="mx-auto flex max-w-lg flex-wrap items-center justify-between gap-2 px-4 py-3 md:max-w-4xl">
         <Link href="/" className="flex items-center gap-2">
-          <div className="relative h-10 w-10 overflow-hidden rounded-full bg-[#8b1a1a]">
+          <div className="relative h-10 w-10 overflow-hidden rounded-full bg-black">
             <Image
-              src="/logo.svg"
+              src="/mavericks_logo.png"
               alt="Tokyo Mavericks"
               width={40}
               height={40}
-              className="object-cover"
+              className="object-contain"
             />
           </div>
           <span className="text-lg font-semibold tracking-tight text-white">
-            Mavericks
+            Tokyo Mavericks
           </span>
         </Link>
         <nav className="flex flex-wrap items-center gap-3 text-sm">
@@ -53,6 +53,9 @@ export async function Nav() {
           </Link>
           <Link href="/stats" className="text-[#a0a0a0] hover:text-white">
             Stats
+          </Link>
+          <Link href="/attendance" className="text-[#a0a0a0] hover:text-white">
+            Attendance
           </Link>
           {session.role === "ADMIN" && (
             <>

@@ -1,7 +1,12 @@
 import { NextResponse } from "next/server";
 import { prisma } from "@/lib/db";
 import { requireAdmin } from "@/lib/auth";
-import { collectInputsFromRsvps } from "@/lib/optimise";
+import {
+  collectInputsFromRsvps,
+  computeDriverStartToPickupMinutes,
+  durationSecFromElement,
+  driverTotalTravelMinutes,
+} from "@/lib/optimise";
 import type { MatrixRow } from "@/lib/maps";
 import type { RSVP } from "@prisma/client";
 
@@ -54,7 +59,7 @@ export async function PUT(
     const ri = riderIds.indexOf(riderRsvpId);
     const di = driverIds.indexOf(driverRsvpId);
     if (ri < 0 || di < 0) return null;
-    return step2[ri]?.elements[di]?.durationSec ?? null;
+    return durationSecFromElement(step2[ri]?.elements[di]);
   };
 
   const driverDepartures = new Map<string, number>();
@@ -65,6 +70,10 @@ export async function PUT(
     if (dep != null) driverDepartures.set(d.rsvp.id, dep);
     if (dm != null) driveToVenueMin.set(d.rsvp.id, dm);
   }
+
+  const sessionStart = session.date.getTime();
+  const step1Departure = new Date(sessionStart - 120 * 60 * 1000);
+  const driveStartToPickupMin = await computeDriverStartToPickupMinutes(drivers, step1Departure);
 
   await prisma.$transaction(async (tx) => {
     await tx.carpoolGroup.deleteMany({ where: { sessionId } });
@@ -107,6 +116,18 @@ export async function PUT(
           },
         });
       }
+    }
+
+    for (const d of drivers) {
+      const dm = d.rsvp.calcDriveToVenueMin ?? 0;
+      const sm = driveStartToPickupMin.get(d.rsvp.id);
+      const travelMin = driverTotalTravelMinutes(dm, sm);
+      await tx.rSVP.update({
+        where: { id: d.rsvp.id },
+        data: {
+          travelTimeMin: dm > 0 || (sm ?? 0) > 0 ? travelMin : null,
+        },
+      });
     }
   });
 

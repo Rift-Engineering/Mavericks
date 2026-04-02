@@ -47,7 +47,13 @@ export async function distanceMatrix(
   if (origins.length === 0 || destinations.length === 0) return [];
 
   const url = buildUrl(origins, destinations, mode, departureTime);
-  const res = await fetch(url);
+  let res: Response;
+  try {
+    res = await fetch(url);
+  } catch (err) {
+    console.error("Distance Matrix fetch failed", err);
+    throw new Error("Distance Matrix request failed");
+  }
   if (!res.ok) throw new Error(`Distance Matrix HTTP ${res.status}`);
   const data = (await res.json()) as {
     status: string;

@@ -11,7 +11,8 @@ export default async function StatsPage() {
       <div>
         <h1 className="text-2xl font-semibold text-white">Travel stats</h1>
         <p className="mt-1 text-sm text-[#a0a0a0]">
-          Total door-to-venue travel time from saved RSVPs (after optimisation / own-way calc).
+          Door-to-venue travel minutes from RSVPs after optimisation. Your totals and team totals are summed across
+          all sessions (all-time). Drivers include start → pickup → venue (no wait at pickup).
         </p>
       </div>
       <StatsClient />

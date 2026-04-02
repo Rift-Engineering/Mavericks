@@ -4,9 +4,11 @@ import type { RSVP, Session } from "@prisma/client";
 
 export const DRIVER_BUFFER_MIN = 10;
 
-type DriverInput = {
+export type DriverInput = {
   rsvp: RSVP;
   pickup: LatLng;
+  /** Home / departure point; when set, travel time includes start→pickup + pickup→venue. */
+  start: LatLng | null;
 };
 
 type RiderInput = {
@@ -28,6 +30,34 @@ function msMinusMinutes(ms: number, min: number) {
   return ms - min * 60 * 1000;
 }
 
+/** Driving minutes from each driver's start to their pickup (diagonal of the matrix). */
+export async function computeDriverStartToPickupMinutes(
+  drivers: DriverInput[],
+  departure: Date,
+): Promise<Map<string, number>> {
+  const out = new Map<string, number>();
+  const paired = drivers.filter((d) => d.start != null);
+  if (paired.length === 0) return out;
+
+  const origins = paired.map((d) => d.start!);
+  const destinations = paired.map((d) => d.pickup);
+  const rows = await distanceMatrix(origins, destinations, "driving", departure);
+  paired.forEach((d, i) => {
+    const sec = rows[i]?.elements[i]?.durationSec;
+    if (sec != null && Number.isFinite(sec)) {
+      out.set(d.rsvp.id, Math.ceil(sec / 60));
+    }
+  });
+  return out;
+}
+
+export function driverTotalTravelMinutes(
+  pickupToVenueMin: number,
+  startToPickupMin: number | undefined,
+): number {
+  return (startToPickupMin ?? 0) + pickupToVenueMin;
+}
+
 function mapTransportMode(
   tm: string | null | undefined,
 ): "driving" | "transit" | "walking" | null {
@@ -37,7 +67,68 @@ function mapTransportMode(
   return null;
 }
 
-/** Greedy: sort rider–driver pairs by transit time; assign if seat available. */
+/** Prefer transit durations; use driving when transit has no duration (common API limitation). */
+export function mergeRiderPickupMatrices(
+  transit: MatrixRow[],
+  driving: MatrixRow[],
+): MatrixRow[] {
+  const n = Math.max(transit.length, driving.length);
+  const out: MatrixRow[] = [];
+  for (let ri = 0; ri < n; ri++) {
+    const tEls = transit[ri]?.elements ?? [];
+    const dEls = driving[ri]?.elements ?? [];
+    const m = Math.max(tEls.length, dEls.length);
+    const elements: MatrixRow["elements"] = [];
+    for (let di = 0; di < m; di++) {
+      const t = tEls[di];
+      const d = dEls[di];
+      const useTransit =
+        t?.durationSec != null && Number.isFinite(t.durationSec);
+      const useDriving =
+        d?.durationSec != null && Number.isFinite(d.durationSec);
+      const durationSec = useTransit ? t!.durationSec : useDriving ? d!.durationSec : null;
+      const status = useTransit ? t!.status : useDriving ? d!.status : "ZERO_RESULTS";
+      elements.push({ destinationIndex: di, durationSec, status });
+    }
+    out.push({ originIndex: ri, elements });
+  }
+  return out;
+}
+
+/** JSON from DB may deserialize numbers oddly; keep assignment math reliable. */
+export function durationSecFromElement(
+  el: MatrixRow["elements"][number] | undefined,
+): number | null {
+  if (!el) return null;
+  const v = el.durationSec as unknown;
+  if (v == null) return null;
+  const n = typeof v === "number" ? v : Number(v);
+  return Number.isFinite(n) ? n : null;
+}
+
+function step2HasUsableDurations(step2: MatrixRow[]): boolean {
+  for (const row of step2) {
+    for (const el of row.elements ?? []) {
+      if (durationSecFromElement(el) != null) return true;
+    }
+  }
+  return false;
+}
+
+async function buildMergedRiderPickupMatrix(
+  riderPoints: LatLng[],
+  pickupPoints: LatLng[],
+  departure: Date,
+): Promise<MatrixRow[]> {
+  if (riderPoints.length === 0 || pickupPoints.length === 0) return [];
+  const [transit, driving] = await Promise.all([
+    distanceMatrix(riderPoints, pickupPoints, "transit", departure),
+    distanceMatrix(riderPoints, pickupPoints, "driving", departure),
+  ]);
+  return mergeRiderPickupMatrices(transit, driving);
+}
+
+/** Greedy: sort rider–driver pairs by travel time (sec); assign if seat available. */
 export function greedyAssign(
   riderIds: string[],
   driverIds: string[],
@@ -118,7 +209,7 @@ export async function runOptimisation(
     const pickupPoints = drivers.map((d) => d.pickup);
     step2 =
       riderPoints.length > 0 && pickupPoints.length > 0
-        ? await distanceMatrix(riderPoints, pickupPoints, "transit", step2Departure)
+        ? await buildMergedRiderPickupMatrix(riderPoints, pickupPoints, step2Departure)
         : [];
 
     step3ByRsvpId = {};
@@ -149,6 +240,27 @@ export async function runOptimisation(
     });
   }
 
+  // Stale snapshots (e.g. transit-only with all ZERO_RESULTS) must not yield empty assignments.
+  const riderPoints = riders.map((r) => r.start);
+  const pickupPoints = drivers.map((d) => d.pickup);
+  if (
+    riderPoints.length > 0 &&
+    pickupPoints.length > 0 &&
+    !step2HasUsableDurations(step2)
+  ) {
+    step2 = await buildMergedRiderPickupMatrix(riderPoints, pickupPoints, step2Departure);
+    await prisma.optimisationSnapshot.upsert({
+      where: { sessionId: session.id },
+      create: {
+        sessionId: session.id,
+        step1Json: step1 as object,
+        step2Json: step2 as object,
+        step3Json: step3ByRsvpId as object,
+      },
+      update: { step2Json: step2 as object },
+    });
+  }
+
   const driverDepartures = new Map<string, number>();
   const driveToVenueMin = new Map<string, number>();
 
@@ -162,16 +274,18 @@ export async function runOptimisation(
     driverDepartures.set(d.rsvp.id, depMs);
   });
 
+  const driveStartToPickupMin = await computeDriverStartToPickupMinutes(
+    drivers,
+    step1Departure,
+  );
+
   const riderIds = riders.map((r) => r.rsvp.id);
   const driverIds = drivers.map((d) => d.rsvp.id);
   const capacity = new Map<string, number>();
   drivers.forEach((d) => capacity.set(d.rsvp.id, d.rsvp.availableSeats ?? 0));
 
   const matrixSec = (ri: number, di: number): number | null => {
-    const row = step2[ri];
-    const el = row?.elements[di];
-    if (!el || el.durationSec == null) return null;
-    return el.durationSec;
+    return durationSecFromElement(step2[ri]?.elements[di]);
   };
 
   const assign =
@@ -195,12 +309,15 @@ export async function runOptimisation(
 
     for (const d of drivers) {
       const depMs = driverDepartures.get(d.rsvp.id);
-      const dm = driveToVenueMin.get(d.rsvp.id);
+      const dm = driveToVenueMin.get(d.rsvp.id) ?? 0;
+      const sm = driveStartToPickupMin.get(d.rsvp.id);
+      const travelMin = driverTotalTravelMinutes(dm, sm);
       await tx.rSVP.update({
         where: { id: d.rsvp.id },
         data: {
           calcDepartureTime: depMs != null ? new Date(depMs) : null,
-          calcDriveToVenueMin: dm ?? null,
+          calcDriveToVenueMin: dm > 0 ? dm : null,
+          travelTimeMin: dm > 0 || (sm ?? 0) > 0 ? travelMin : null,
         },
       });
 
@@ -276,6 +393,10 @@ export function collectInputsFromRsvps(rsvps: RSVP[]) {
       drivers.push({
         rsvp: r,
         pickup: { lat: r.pickupLat, lng: r.pickupLng },
+        start:
+          r.startLat != null && r.startLng != null
+            ? { lat: r.startLat, lng: r.startLng }
+            : null,
       });
     } else if (r.needsCarpool && !r.isDriver && r.startLat != null && r.startLng != null) {
       riders.push({

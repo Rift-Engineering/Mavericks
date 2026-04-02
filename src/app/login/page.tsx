@@ -38,8 +38,15 @@ export default function LoginPage() {
   return (
     <div className="flex min-h-[70dvh] flex-col items-center justify-center px-4">
       <div className="mb-10 flex flex-col items-center gap-4">
-        <div className="relative h-24 w-24 overflow-hidden rounded-full bg-[#8b1a1a] ring-2 ring-[#8b1a1a]/50">
-          <Image src="/logo.svg" alt="Tokyo Mavericks" width={96} height={96} priority />
+        <div className="relative h-24 w-24 overflow-hidden rounded-full bg-black ring-2 ring-[#8b1a1a]/40">
+          <Image
+            src="/mavericks_logo.png"
+            alt="Tokyo Mavericks"
+            width={96}
+            height={96}
+            className="object-contain"
+            priority
+          />
         </div>
         <h1 className="text-center text-2xl font-semibold text-white">Tokyo Mavericks</h1>
         <p className="text-center text-sm text-[#a0a0a0]">Sign in to manage attendance & carpools</p>

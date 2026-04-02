@@ -52,8 +52,16 @@ export function RSVPForm({ session, existing }: Props) {
           body.pickupLat = pickup.lat;
           body.pickupLng = pickup.lng;
           body.availableSeats = seats;
+          body.startLocation = start.name;
+          body.startLat = start.lat;
+          body.startLng = start.lng;
           if (!pickup.lat || !pickup.lng) {
             setError("Choose a pickup station from suggestions");
+            setLoading(false);
+            return;
+          }
+          if (!start.lat || !start.lng) {
+            setError("Choose where you’re driving from (start location)");
             setLoading(false);
             return;
           }
@@ -164,7 +172,13 @@ export function RSVPForm({ session, existing }: Props) {
           {carpoolMode === "driver" && (
             <>
               <StationSearch
-                label="Pickup station"
+                label="Driving from (home / start)"
+                mode="address"
+                initialName={start.name}
+                onPlace={(p) => setStart({ name: p.name, lat: p.lat, lng: p.lng })}
+              />
+              <StationSearch
+                label="Pickup station (where riders meet you)"
                 mode="station"
                 initialName={pickup.name}
                 onPlace={(p) => setPickup({ name: p.name, lat: p.lat, lng: p.lng })}

@@ -1,6 +1,6 @@
 "use client";
 
-import { Loader } from "@googlemaps/js-api-loader";
+import { createGoogleMapsLoader } from "@/lib/google-maps-loader";
 import { useEffect, useId, useRef, useState } from "react";
 
 type Props = {
@@ -14,18 +14,17 @@ type Props = {
 export function StationSearch({ label, mode, initialName, onPlace, disabled }: Props) {
   const inputRef = useRef<HTMLInputElement>(null);
   const onPlaceRef = useRef(onPlace);
-  onPlaceRef.current = onPlace;
   const id = useId();
   const [ready, setReady] = useState(false);
   const apiKey = process.env.NEXT_PUBLIC_GOOGLE_MAPS_KEY;
 
   useEffect(() => {
+    onPlaceRef.current = onPlace;
+  }, [onPlace]);
+
+  useEffect(() => {
     if (!apiKey || !inputRef.current) return;
-    const loader = new Loader({
-      apiKey,
-      version: "weekly",
-      libraries: ["places"],
-    });
+    const loader = createGoogleMapsLoader(apiKey);
     let ac: google.maps.places.Autocomplete | undefined;
     let listener: google.maps.MapsEventListener | undefined;
     void loader.load().then(() => {

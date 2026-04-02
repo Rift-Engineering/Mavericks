@@ -54,6 +54,17 @@ export default async function SessionsPage() {
                     timeZone: "Asia/Tokyo",
                   })}
                 </p>
+                <p className="mt-1 text-sm text-[#a0a0a0]">
+                  RSVP by{" "}
+                  {s.rsvpDeadline.toLocaleString("en-GB", {
+                    weekday: "short",
+                    month: "short",
+                    day: "numeric",
+                    hour: "2-digit",
+                    minute: "2-digit",
+                    timeZone: "Asia/Tokyo",
+                  })}
+                </p>
                 <p className="mt-2 text-xs text-[#8b1a1a]">{status}</p>
               </Link>
             </li>

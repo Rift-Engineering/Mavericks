@@ -26,7 +26,7 @@ Single-package Next.js app for team attendance and carpool planning.
 |--------|--------|
 | **Passwords** | [bcryptjs](https://github.com/dcodeIO/bcrypt.js) (hashed, never plaintext) |
 | **Sessions** | [jose](https://github.com/panva/jose) — signed JWT in HTTP-only cookie (`tm_session`) |
-| **Route protection** | `src/middleware.ts` (Edge); admin-only UI/API enforced in handlers where needed |
+| **Route protection** | `src/proxy.ts` (Edge); admin-only UI/API enforced in handlers where needed |
 
 ## Styling & UI
 

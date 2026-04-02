@@ -1,6 +1,6 @@
 "use client";
 
-import { Loader } from "@googlemaps/js-api-loader";
+import { createGoogleMapsLoader } from "@/lib/google-maps-loader";
 import { useEffect, useRef, useState } from "react";
 
 export function MapEmbed({
@@ -19,7 +19,7 @@ export function MapEmbed({
   useEffect(() => {
     if (!apiKey || !ref.current) return;
     let cancelled = false;
-    const loader = new Loader({ apiKey, version: "weekly" });
+    const loader = createGoogleMapsLoader(apiKey);
     void loader.load().then(() => {
       if (cancelled || !ref.current || !window.google?.maps) return;
       const map = new window.google.maps.Map(ref.current, {
