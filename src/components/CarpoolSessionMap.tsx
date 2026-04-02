@@ -58,7 +58,7 @@ export function CarpoolSessionMap({
       });
 
       const bounds = new maps.LatLngBounds();
-      const infoWindow = new maps.InfoWindow();
+      const infoWindow = new maps.InfoWindow({ disableAutoPan: true });
 
       const closeInfo = () => {
         infoWindow.close();
