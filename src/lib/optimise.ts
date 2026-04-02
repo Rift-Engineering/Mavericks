@@ -307,27 +307,40 @@ export async function runOptimisation(
       },
     });
 
-    for (const d of drivers) {
-      const depMs = driverDepartures.get(d.rsvp.id);
-      const dm = driveToVenueMin.get(d.rsvp.id) ?? 0;
-      const sm = driveStartToPickupMin.get(d.rsvp.id);
-      const travelMin = driverTotalTravelMinutes(dm, sm);
-      await tx.rSVP.update({
-        where: { id: d.rsvp.id },
-        data: {
-          calcDepartureTime: depMs != null ? new Date(depMs) : null,
-          calcDriveToVenueMin: dm > 0 ? dm : null,
-          travelTimeMin: dm > 0 || (sm ?? 0) > 0 ? travelMin : null,
-        },
-      });
+    // Update all driver RSVPs in parallel
+    await Promise.all(
+      drivers.map((d) => {
+        const depMs = driverDepartures.get(d.rsvp.id);
+        const dm = driveToVenueMin.get(d.rsvp.id) ?? 0;
+        const sm = driveStartToPickupMin.get(d.rsvp.id);
+        const travelMin = driverTotalTravelMinutes(dm, sm);
+        return tx.rSVP.update({
+          where: { id: d.rsvp.id },
+          data: {
+            calcDepartureTime: depMs != null ? new Date(depMs) : null,
+            calcDriveToVenueMin: dm > 0 ? dm : null,
+            travelTimeMin: dm > 0 || (sm ?? 0) > 0 ? travelMin : null,
+          },
+        });
+      }),
+    );
 
-      const group = await tx.carpoolGroup.create({
-        data: {
-          sessionId: session.id,
-          driverRsvpId: d.rsvp.id,
-        },
-      });
+    // Create all carpool groups in parallel, then assign riders in parallel
+    const groups = await Promise.all(
+      drivers.map((d) =>
+        tx.carpoolGroup.create({
+          data: {
+            sessionId: session.id,
+            driverRsvpId: d.rsvp.id,
+          },
+        }),
+      ),
+    );
 
+    const riderUpdates: Promise<unknown>[] = [];
+    for (let dIdx = 0; dIdx < drivers.length; dIdx++) {
+      const d = drivers[dIdx];
+      const group = groups[dIdx];
       const myRiders = [...assign.entries()]
         .filter(([, drId]) => drId === d.rsvp.id)
         .map(([rid]) => rid);
@@ -342,32 +355,38 @@ export async function runOptimisation(
           depDriver != null && tSec != null ? depDriver - tSec * 1000 : null;
         const driveM = driveToVenueMin.get(d.rsvp.id) ?? 0;
 
-        await tx.rSVP.update({
-          where: { id: rid },
-          data: {
-            carpoolGroupId: group.id,
-            transitToPickupMin: transitMin,
-            calcDepartureTime: riderDepMs != null ? new Date(riderDepMs) : null,
-            travelTimeMin: transitMin != null ? transitMin + driveM : null,
-          },
-        });
+        riderUpdates.push(
+          tx.rSVP.update({
+            where: { id: rid },
+            data: {
+              carpoolGroupId: group.id,
+              transitToPickupMin: transitMin,
+              calcDepartureTime: riderDepMs != null ? new Date(riderDepMs) : null,
+              travelTimeMin: transitMin != null ? transitMin + driveM : null,
+            },
+          }),
+        );
       }
     }
+    await Promise.all(riderUpdates);
 
-    for (const o of ownWay) {
-      const durationSec = step3ByRsvpId[o.rsvp.id];
-      const travelMin = durationSec != null ? Math.ceil(durationSec / 60) : null;
-      const depMs =
-        travelMin != null ? msMinusMinutes(sessionStart, travelMin) : null;
-      await tx.rSVP.update({
-        where: { id: o.rsvp.id },
-        data: {
-          travelTimeMin: travelMin,
-          calcDepartureTime: depMs != null ? new Date(depMs) : null,
-        },
-      });
-    }
-  });
+    // Update all own-way RSVPs in parallel
+    await Promise.all(
+      ownWay.map((o) => {
+        const durationSec = step3ByRsvpId[o.rsvp.id];
+        const travelMin = durationSec != null ? Math.ceil(durationSec / 60) : null;
+        const depMs =
+          travelMin != null ? msMinusMinutes(sessionStart, travelMin) : null;
+        return tx.rSVP.update({
+          where: { id: o.rsvp.id },
+          data: {
+            travelTimeMin: travelMin,
+            calcDepartureTime: depMs != null ? new Date(depMs) : null,
+          },
+        });
+      }),
+    );
+  }, { timeout: 30000 });
 
   await prisma.session.update({
     where: { id: session.id },
