@@ -1,0 +1,23 @@
+Welcome to Tokyo Mavericks. This app helps our team plan training sessions, RSVPs, and carpools around Tokyo.
+
+You sign in with email and password. The home dashboard greets you and highlights the next session, RSVP status, and any deadlines closing soon.
+
+The Sessions page lists upcoming and past training. Each card shows status: open for RSVP, closed, optimised for carpooling, or published when rides are final.
+
+Opening a session shows the venue on a map, the RSVP deadline, and who is coming. You can say whether you are attending, need a ride, can drive with pickup details, or travel on your own with public transport or walking estimates.
+
+After admins optimise and publish carpools, drivers and riders see their assignments, pickup points, and a map of routes.
+
+Stats summarises travel times for you and the team with charts, so we can see commute patterns over time.
+
+Attendance and rides lists every session roster: who is in, and how each person travels. Admins can adjust details when plans change.
+
+The Help page explains the full workflow in one place.
+
+Administrators create new sessions with venue location and RSVP deadlines.
+
+On Carpool assignments, admins close RSVP when ready, run optimisation using travel matrices, tweak groups if needed, and publish so everyone sees their ride.
+
+Finally, user management lets admins add or update team accounts.
+
+That is Tokyo Mavericks: sessions, RSVPs, smart carpools, stats, attendance, and admin tools in one place. Thanks for watching.

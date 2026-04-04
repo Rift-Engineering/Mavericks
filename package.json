@@ -6,7 +6,8 @@
     "dev": "next dev --turbopack",
     "build": "prisma generate && next build",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "demo:video": "bash scripts/demo-video/build-demo-video.sh"
   },
   "dependencies": {
     "@googlemaps/google-maps-services-js": "^3.4.2",
@@ -32,6 +33,7 @@
     "@types/ws": "^8.18.1",
     "eslint": "^9",
     "eslint-config-next": "16.2.2",
+    "playwright": "^1.59.1",
     "prisma": "^6.19.0",
     "tailwindcss": "^4",
     "tsx": "^4.19.2",

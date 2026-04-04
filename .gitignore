@@ -42,3 +42,6 @@ next-env.d.ts
 
 # prisma
 /prisma/migrations/**/migration_lock.toml
+
+# demo video build artifacts (see scripts/demo-video)
+/scripts/demo-video/output/
