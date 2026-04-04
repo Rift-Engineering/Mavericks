@@ -59,6 +59,7 @@ export async function POST(
     return NextResponse.json({ ok: true });
   } catch (e) {
     console.error("Optimisation error:", e);
-    return NextResponse.json({ error: "Optimisation failed" }, { status: 500 });
+    const message = e instanceof Error ? e.message : "Optimisation failed";
+    return NextResponse.json({ error: message }, { status: 500 });
   }
 }

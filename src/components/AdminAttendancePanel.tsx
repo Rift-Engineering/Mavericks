@@ -97,8 +97,23 @@ export function AdminAttendancePanel({
         </button>
       </div>
 
+      {/* Attendance summary */}
+      {sessionId && rsvps.length > 0 && (
+        <div className="flex flex-wrap gap-3 text-sm">
+          <span className="rounded-full bg-emerald-900/40 px-3 py-1 text-emerald-200">
+            {rsvps.filter((r) => r.attending).length} attending
+          </span>
+          <span className="rounded-full bg-white/10 px-3 py-1 text-muted">
+            {rsvps.filter((r) => !r.attending).length} not attending
+          </span>
+          <span className="rounded-full bg-amber-900/40 px-3 py-1 text-amber-200">
+            {users.length - rsvps.length} no response
+          </span>
+        </div>
+      )}
+
       {error && (
-        <p className="rounded-lg bg-[#8b1a1a]/30 px-3 py-2 text-sm text-red-200">{error}</p>
+        <p className="rounded-lg bg-[#8b1a1a]/30 px-3 py-2 text-sm text-red-200" role="alert">{error}</p>
       )}
 
       {sessions.length === 0 && (
@@ -110,9 +125,9 @@ export function AdminAttendancePanel({
           <table className="w-full min-w-[640px] text-left text-sm">
             <thead className="border-b border-white/10 bg-white/[0.03] text-[#a0a0a0]">
               <tr>
-                <th className="px-3 py-2 font-medium">Player</th>
-                <th className="px-3 py-2 font-medium">Status</th>
-                {canEdit && <th className="w-32 px-3 py-2 font-medium"> </th>}
+                <th scope="col" className="px-3 py-2 font-medium">Player</th>
+                <th scope="col" className="px-3 py-2 font-medium">Status</th>
+                {canEdit && <th scope="col" className="w-32 px-3 py-2 font-medium"> </th>}
               </tr>
             </thead>
             <tbody>
@@ -125,7 +140,17 @@ export function AdminAttendancePanel({
                       <span className="font-medium">{u.name}</span>
                       <span className="mt-0.5 block text-xs text-[#a0a0a0]">{u.email}</span>
                     </td>
-                    <td className="px-3 py-3 text-[#a0a0a0]">{statusLabel(r)}</td>
+                    <td className="px-3 py-3">
+                      <span className={
+                        !r ? "text-amber-300" :
+                        !r.attending ? "text-muted" :
+                        r.isDriver ? "text-emerald-300" :
+                        r.needsCarpool ? "text-blue-300" :
+                        "text-white"
+                      }>
+                        {statusLabel(r)}
+                      </span>
+                    </td>
                     {canEdit && (
                       <td className="px-3 py-3">
                         <button
@@ -291,7 +316,7 @@ function AdminRsvpEditor({
 
         <form onSubmit={onSubmit} className="space-y-4">
           {formError && (
-            <p className="rounded-lg bg-[#8b1a1a]/30 px-3 py-2 text-sm text-red-200">{formError}</p>
+            <p className="rounded-lg bg-[#8b1a1a]/30 px-3 py-2 text-sm text-red-200" role="alert">{formError}</p>
           )}
 
           <div className="flex gap-4">

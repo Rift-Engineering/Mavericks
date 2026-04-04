@@ -1,82 +1,25 @@
 import Image from "next/image";
 import Link from "next/link";
 import { getSession } from "@/lib/auth";
-import { LogoutButton } from "@/components/LogoutButton";
+import { NavInner } from "@/components/NavInner";
 
 export async function Nav() {
   const session = await getSession();
 
   if (!session) {
     return (
-      <header className="border-b border-white/10 bg-[#0a0a0a]/95 backdrop-blur">
+      <header className="sticky top-0 z-40 border-b border-white/10 bg-background/95 backdrop-blur">
         <div className="mx-auto flex max-w-lg items-center justify-between px-4 py-3 md:max-w-4xl">
           <Link href="/login" className="flex items-center gap-2">
             <div className="relative h-10 w-10 overflow-hidden rounded-full bg-black">
-              <Image
-                src="/mavericks_logo.png"
-                alt="Tokyo Mavericks"
-                width={40}
-                height={40}
-                className="object-contain"
-                priority
-              />
+              <Image src="/mavericks_logo.png" alt="Tokyo Mavericks" width={40} height={40} className="object-contain" priority />
             </div>
-            <span className="text-lg font-semibold tracking-tight text-white">
-              Tokyo Mavericks
-            </span>
+            <span className="text-lg font-semibold tracking-tight text-white">Tokyo Mavericks</span>
           </Link>
         </div>
       </header>
     );
   }
 
-  return (
-    <header className="border-b border-white/10 bg-[#0a0a0a]/95 backdrop-blur">
-      <div className="mx-auto flex max-w-lg flex-wrap items-center justify-between gap-2 px-4 py-3 md:max-w-4xl">
-        <Link href="/" className="flex items-center gap-2">
-          <div className="relative h-10 w-10 overflow-hidden rounded-full bg-black">
-            <Image
-              src="/mavericks_logo.png"
-              alt="Tokyo Mavericks"
-              width={40}
-              height={40}
-              className="object-contain"
-            />
-          </div>
-          <span className="text-lg font-semibold tracking-tight text-white">
-            Tokyo Mavericks
-          </span>
-        </Link>
-        <nav className="flex flex-wrap items-center gap-3 text-sm">
-          <Link
-            href="/help"
-            className="font-help-serif text-[0.95rem] tracking-wide text-[#c4a574] hover:text-[#e8d4b0]"
-          >
-            Help
-          </Link>
-          <Link href="/sessions" className="text-[#a0a0a0] hover:text-white">
-            Sessions
-          </Link>
-          <Link href="/stats" className="text-[#a0a0a0] hover:text-white">
-            Stats
-          </Link>
-          <Link href="/attendance" className="text-[#a0a0a0] hover:text-white">
-            Attendance
-          </Link>
-          {session.role === "ADMIN" && (
-            <>
-              <Link href="/sessions/new" className="text-[#a0a0a0] hover:text-white">
-                New session
-              </Link>
-              <Link href="/admin/users" className="text-[#a0a0a0] hover:text-white">
-                Users
-              </Link>
-            </>
-          )}
-          <span className="hidden text-[#a0a0a0] sm:inline">{session.name}</span>
-          <LogoutButton />
-        </nav>
-      </div>
-    </header>
-  );
+  return <NavInner name={session.name} role={session.role} />;
 }
