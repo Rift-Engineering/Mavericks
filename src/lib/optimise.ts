@@ -293,100 +293,103 @@ export async function runOptimisation(
       ? greedyAssign(riderIds, driverIds, capacity, matrixSec)
       : new Map<string, string>();
 
-  await prisma.$transaction(async (tx) => {
-    await tx.carpoolGroup.deleteMany({ where: { sessionId: session.id } });
+  await prisma.$transaction(
+    async (tx) => {
+      await tx.carpoolGroup.deleteMany({ where: { sessionId: session.id } });
 
-    await tx.rSVP.updateMany({
-      where: { sessionId: session.id },
-      data: {
-        carpoolGroupId: null,
-        calcDepartureTime: null,
-        calcDriveToVenueMin: null,
-        transitToPickupMin: null,
-        travelTimeMin: null,
-      },
-    });
+      await tx.rSVP.updateMany({
+        where: { sessionId: session.id },
+        data: {
+          carpoolGroupId: null,
+          calcDepartureTime: null,
+          calcDriveToVenueMin: null,
+          transitToPickupMin: null,
+          travelTimeMin: null,
+        },
+      });
 
-    // Update all driver RSVPs in parallel
-    await Promise.all(
-      drivers.map((d) => {
-        const depMs = driverDepartures.get(d.rsvp.id);
-        const dm = driveToVenueMin.get(d.rsvp.id) ?? 0;
-        const sm = driveStartToPickupMin.get(d.rsvp.id);
-        const travelMin = driverTotalTravelMinutes(dm, sm);
-        return tx.rSVP.update({
-          where: { id: d.rsvp.id },
-          data: {
-            calcDepartureTime: depMs != null ? new Date(depMs) : null,
-            calcDriveToVenueMin: dm > 0 ? dm : null,
-            travelTimeMin: dm > 0 || (sm ?? 0) > 0 ? travelMin : null,
-          },
-        });
-      }),
-    );
-
-    // Create all carpool groups in parallel, then assign riders in parallel
-    const groups = await Promise.all(
-      drivers.map((d) =>
-        tx.carpoolGroup.create({
-          data: {
-            sessionId: session.id,
-            driverRsvpId: d.rsvp.id,
-          },
-        }),
-      ),
-    );
-
-    const riderUpdates: Promise<unknown>[] = [];
-    for (let dIdx = 0; dIdx < drivers.length; dIdx++) {
-      const d = drivers[dIdx];
-      const group = groups[dIdx];
-      const myRiders = [...assign.entries()]
-        .filter(([, drId]) => drId === d.rsvp.id)
-        .map(([rid]) => rid);
-
-      for (const rid of myRiders) {
-        const ri = riderIds.indexOf(rid);
-        const di = driverIds.indexOf(d.rsvp.id);
-        const tSec = matrixSec(ri, di);
-        const transitMin = tSec != null ? Math.ceil(tSec / 60) : null;
-        const depDriver = driverDepartures.get(d.rsvp.id);
-        const riderDepMs =
-          depDriver != null && tSec != null ? depDriver - tSec * 1000 : null;
-        const driveM = driveToVenueMin.get(d.rsvp.id) ?? 0;
-
-        riderUpdates.push(
-          tx.rSVP.update({
-            where: { id: rid },
+      // Update all driver RSVPs in parallel
+      await Promise.all(
+        drivers.map((d) => {
+          const depMs = driverDepartures.get(d.rsvp.id);
+          const dm = driveToVenueMin.get(d.rsvp.id) ?? 0;
+          const sm = driveStartToPickupMin.get(d.rsvp.id);
+          const travelMin = driverTotalTravelMinutes(dm, sm);
+          return tx.rSVP.update({
+            where: { id: d.rsvp.id },
             data: {
-              carpoolGroupId: group.id,
-              transitToPickupMin: transitMin,
-              calcDepartureTime: riderDepMs != null ? new Date(riderDepMs) : null,
-              travelTimeMin: transitMin != null ? transitMin + driveM : null,
+              calcDepartureTime: depMs != null ? new Date(depMs) : null,
+              calcDriveToVenueMin: dm > 0 ? dm : null,
+              travelTimeMin: dm > 0 || (sm ?? 0) > 0 ? travelMin : null,
+            },
+          });
+        }),
+      );
+
+      // Create all carpool groups in parallel, then assign riders in parallel
+      const groups = await Promise.all(
+        drivers.map((d) =>
+          tx.carpoolGroup.create({
+            data: {
+              sessionId: session.id,
+              driverRsvpId: d.rsvp.id,
             },
           }),
-        );
-      }
-    }
-    await Promise.all(riderUpdates);
+        ),
+      );
 
-    // Update all own-way RSVPs in parallel
-    await Promise.all(
-      ownWay.map((o) => {
-        const durationSec = step3ByRsvpId[o.rsvp.id];
-        const travelMin = durationSec != null ? Math.ceil(durationSec / 60) : null;
-        const depMs =
-          travelMin != null ? msMinusMinutes(sessionStart, travelMin) : null;
-        return tx.rSVP.update({
-          where: { id: o.rsvp.id },
-          data: {
-            travelTimeMin: travelMin,
-            calcDepartureTime: depMs != null ? new Date(depMs) : null,
-          },
-        });
-      }),
-    );
-  }, { timeout: 30000 });
+      const riderUpdates: Promise<unknown>[] = [];
+      for (let dIdx = 0; dIdx < drivers.length; dIdx++) {
+        const d = drivers[dIdx];
+        const group = groups[dIdx];
+        const myRiders = [...assign.entries()]
+          .filter(([, drId]) => drId === d.rsvp.id)
+          .map(([rid]) => rid);
+
+        for (const rid of myRiders) {
+          const ri = riderIds.indexOf(rid);
+          const di = driverIds.indexOf(d.rsvp.id);
+          const tSec = matrixSec(ri, di);
+          const transitMin = tSec != null ? Math.ceil(tSec / 60) : null;
+          const depDriver = driverDepartures.get(d.rsvp.id);
+          const riderDepMs =
+            depDriver != null && tSec != null ? depDriver - tSec * 1000 : null;
+          const driveM = driveToVenueMin.get(d.rsvp.id) ?? 0;
+
+          riderUpdates.push(
+            tx.rSVP.update({
+              where: { id: rid },
+              data: {
+                carpoolGroupId: group.id,
+                transitToPickupMin: transitMin,
+                calcDepartureTime: riderDepMs != null ? new Date(riderDepMs) : null,
+                travelTimeMin: transitMin != null ? transitMin + driveM : null,
+              },
+            }),
+          );
+        }
+      }
+      await Promise.all(riderUpdates);
+
+      // Update all own-way RSVPs in parallel
+      await Promise.all(
+        ownWay.map((o) => {
+          const durationSec = step3ByRsvpId[o.rsvp.id];
+          const travelMin = durationSec != null ? Math.ceil(durationSec / 60) : null;
+          const depMs =
+            travelMin != null ? msMinusMinutes(sessionStart, travelMin) : null;
+          return tx.rSVP.update({
+            where: { id: o.rsvp.id },
+            data: {
+              travelTimeMin: travelMin,
+              calcDepartureTime: depMs != null ? new Date(depMs) : null,
+            },
+          });
+        }),
+      );
+    },
+    { timeout: 60_000 },
+  );
 
   await prisma.session.update({
     where: { id: session.id },
