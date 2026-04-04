@@ -28,7 +28,7 @@ See `STACK.md` and `package.json` scripts for full details. Key commands:
 
 ### Non-obvious caveats
 
-- **PostgreSQL must be running** before Prisma commands or `pnpm dev`. Start it with: `sudo pg_ctlcluster 16 main start`
+- **No local PostgreSQL needed.** The `DATABASE_URL` secret points to a Neon-hosted (remote) PostgreSQL instance, so there is no need to start a local PostgreSQL server.
 - **pnpm build scripts**: The `pnpm.onlyBuiltDependencies` field in `package.json` allowlists native build scripts for `@prisma/client`, `@prisma/engines`, `esbuild`, `prisma`, `sharp`, and `unrs-resolver`. Without this, `pnpm install` will skip postinstall hooks and Prisma Client won't be generated.
 - **Prisma deprecation warning**: The `package.json#prisma` config style is deprecated in Prisma 7; ignore the warning for now.
 - The `DATABASE_URL` secret points to a Neon-hosted PostgreSQL instance. Migrations are already applied; just run `pnpm prisma db seed` to populate data if the DB is empty.
