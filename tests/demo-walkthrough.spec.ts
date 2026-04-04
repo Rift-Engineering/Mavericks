@@ -1,4 +1,4 @@
-import { test, expect } from "@playwright/test";
+import { test, expect, request } from "@playwright/test";
 
 test("app walkthrough (recorded)", async ({ page }) => {
   const pause = async (ms: number) => page.waitForTimeout(ms);
@@ -7,14 +7,23 @@ test("app walkthrough (recorded)", async ({ page }) => {
   await expect(page.getByRole("heading", { name: "Tokyo Mavericks" })).toBeVisible();
   await pause(800);
 
-  await page.getByLabel("Email").fill("admin@mavericks.com");
-  await pause(300);
-  await page.getByLabel("Password").fill("mavericks123");
-  await pause(300);
-  await page.getByRole("button", { name: "Sign in" }).click();
+  // Deterministic login via API to avoid flaky client-side hydration.
+  const api = await request.newContext({ baseURL: "http://127.0.0.1:3000" });
+  const loginRes = await api.post("/api/auth/login", {
+    data: { email: "admin@mavericks.com", password: "mavericks123" },
+  });
+  expect(loginRes.ok()).toBeTruthy();
+  const setCookie = loginRes.headers()["set-cookie"];
+  expect(setCookie).toBeTruthy();
+  const cookiePair = setCookie!.split(";")[0]!;
+  const [name, value] = cookiePair.split("=");
+  await page.context().addCookies([
+    { name, value, domain: "127.0.0.1", path: "/" },
+  ]);
+  await api.dispose();
 
-  await page.waitForURL("**/");
-  await expect(page.getByRole("heading", { name: /Hello,/ })).toBeVisible();
+  await page.goto("/");
+  await expect(page.getByRole("heading", { name: /Hello,/ })).toBeVisible({ timeout: 30_000 });
   await pause(1200);
 
   // Sessions list

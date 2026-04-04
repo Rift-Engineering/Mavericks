@@ -1,0 +1,21 @@
+Tokyo Mavericks is a lightweight attendance and carpool planning app for team training sessions.
+
+We’ll start on the login screen. Sign in with your team account to access upcoming sessions.
+
+On the home page, you’ll see the next training session at the top, along with your current RSVP status. If an RSVP deadline is approaching, the app highlights it so you don’t miss it.
+
+Now let’s open the Sessions page. This is the full schedule, ordered by date. Each session card shows key details and whether you’ve responded.
+
+Opening a session takes you to the session detail view. This is where you RSVP: whether you’re attending, whether you can drive, and whether you need a carpool. The goal is to collect reliable attendance and ride-demand signals early, before the deadline.
+
+For admins, there’s also an Assignments view for each session. This is where carpools are organized: riders are grouped with drivers, and the plan can be reviewed before publishing.
+
+Next is the Attendance page. This is day-of tracking for who actually showed up, so attendance records match reality, not just RSVPs.
+
+The Stats page summarizes attendance trends and participation over time, so organizers can plan capacity and understand engagement.
+
+Admins can also manage the roster on the Users page, including roles and team metadata.
+
+Finally, the Help page explains the workflow and the meaning of the RSVP and carpool options.
+
+That’s the full flow: schedule sessions, gather RSVPs, organize carpools, and track attendance.
