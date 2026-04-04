@@ -9,7 +9,6 @@ const inter = Inter({
   display: "swap",
 });
 
-/** Distinct serif for Help — contrasts with Inter nav links */
 const helpSerif = Lora({
   subsets: ["latin"],
   variable: "--font-help-serif",
@@ -29,9 +28,15 @@ export default function RootLayout({
   return (
     <html lang="en" className="dark">
       <body className={`${inter.variable} ${helpSerif.variable} font-sans antialiased`}>
+        <a
+          href="#main-content"
+          className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-50 focus:rounded-lg focus:bg-accent focus:px-4 focus:py-2 focus:text-white"
+        >
+          Skip to content
+        </a>
         <div className="flex min-h-dvh flex-col">
           <Nav />
-          <main className="mx-auto w-full max-w-lg flex-1 px-4 pb-8 pt-4 md:max-w-4xl">
+          <main id="main-content" className="mx-auto w-full max-w-lg flex-1 px-4 pb-8 pt-4 md:max-w-4xl">
             {children}
           </main>
         </div>
