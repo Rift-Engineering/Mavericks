@@ -42,6 +42,27 @@ next-env.d.ts
 
 # prisma
 /prisma/migrations/**/migration_lock.toml
+.envrc
+.env.local
 
-# demo video build artifacts (see scripts/demo-video)
-/scripts/demo-video/output/
+# ai agent tooling
+.cursor/
+.cursorignore
+.cursorrules
+.cursor-tutor/
+AGENTS.md
+CLAUDE.md
+.claude/
+.aider*
+.continue/
+.codeium/
+.windsurf/
+.copilot*
+.github/copilot*
+.goose/
+.tabnine/
+.codiumai/
+
+# secret managers (local)
+.mise.toml
+doppler.yaml
