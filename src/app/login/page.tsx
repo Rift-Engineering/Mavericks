@@ -36,7 +36,7 @@ export default function LoginPage() {
   }
 
   return (
-    <div className="flex min-h-[calc(100dvh-8rem)] flex-col items-center justify-center px-4 py-8">
+    <div className="flex min-h-[calc(100dvh-6rem)] flex-col items-center justify-center px-4 py-8">
       <div className="mb-8 flex flex-col items-center gap-3">
         <div className="relative h-20 w-20 overflow-hidden rounded-full bg-black ring-2 ring-[#8b1a1a]/40">
           <Image
