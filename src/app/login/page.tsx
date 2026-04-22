@@ -100,6 +100,44 @@ export default function LoginPage() {
           {loading ? "Signing in…" : "Sign in"}
         </button>
       </form>
+
+      <footer className="mt-10 flex flex-col items-center gap-2 text-[11px] text-white/40">
+        <a
+          href="https://riftengineering.com.au"
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label="Rift Engineering"
+          className="opacity-70 transition hover:opacity-100"
+        >
+          <Image
+            src="/rift_engineering_logo.svg"
+            alt="Rift Engineering"
+            width={32}
+            height={32}
+            className="rounded-sm"
+          />
+        </a>
+        <p>
+          Built by{" "}
+          <a
+            href="https://riftengineering.com.au"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-white/60 underline-offset-2 hover:text-white hover:underline"
+          >
+            Rift Engineering
+          </a>
+          {" · "}
+          <a
+            href="https://github.com/Rift-Engineering/Mavericks"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-white/60 underline-offset-2 hover:text-white hover:underline"
+          >
+            source
+          </a>
+        </p>
+      </footer>
     </div>
   );
 }
