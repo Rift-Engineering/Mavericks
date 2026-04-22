@@ -36,14 +36,14 @@ export default function LoginPage() {
   }
 
   return (
-    <div className="flex min-h-[70dvh] flex-col items-center justify-center px-4">
-      <div className="mb-10 flex flex-col items-center gap-4">
-        <div className="relative h-24 w-24 overflow-hidden rounded-full bg-black ring-2 ring-[#8b1a1a]/40">
+    <div className="flex min-h-[calc(100dvh-8rem)] flex-col items-center justify-center px-4 py-8">
+      <div className="mb-8 flex flex-col items-center gap-3">
+        <div className="relative h-20 w-20 overflow-hidden rounded-full bg-black ring-2 ring-[#8b1a1a]/40">
           <Image
             src="/mavericks_logo.png"
             alt="Tokyo Mavericks"
-            width={96}
-            height={96}
+            width={80}
+            height={80}
             className="object-contain"
             priority
           />
@@ -74,7 +74,7 @@ export default function LoginPage() {
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             className="tap-target w-full rounded-lg border border-white/15 bg-[#0a0a0a] px-4 py-3 text-white placeholder:text-white/40 focus:border-[#8b1a1a] focus:outline-none focus:ring-1 focus:ring-[#8b1a1a]"
-            placeholder="you@example.com"
+            placeholder="email@example.com"
           />
         </div>
         <div>
@@ -101,7 +101,7 @@ export default function LoginPage() {
         </button>
       </form>
 
-      <footer className="mt-10 flex flex-col items-center gap-2 text-[11px] text-white/40">
+      <footer className="pointer-events-none fixed inset-x-0 bottom-4 z-10 flex flex-col items-center gap-2 text-[11px] text-white/40 [&_a]:pointer-events-auto">
         <a
           href="https://riftengineering.com.au"
           target="_blank"
